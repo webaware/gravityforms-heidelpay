@@ -1,4 +1,4 @@
-// Gravity Forms eWAY Pro feed admin script
+// Gravity Forms heidelpay feed admin script
 
 (function($) {
 

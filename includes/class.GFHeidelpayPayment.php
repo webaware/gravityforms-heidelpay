@@ -506,7 +506,7 @@ class GFHeidelpayPayment {
 		}
 
 		// allow hookers to override for network-specific fixes
-		$ip = apply_filters('gfeway_customer_ip', $ip);
+		$ip = apply_filters('gfheidelpay_customer_ip', $ip);
 
 		return $ip;
 	}

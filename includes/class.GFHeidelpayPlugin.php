@@ -75,7 +75,7 @@ class GFHeidelpayPlugin {
 	* Gravity Forms loads text domain for add-ons, so this won't be called if the add-on was registered
 	*/
 	public function loadTextDomain() {
-		load_plugin_textdomain('gravityforms-heidelpay', false, plugin_basename(dirname(GFEWAYPRO_PLUGIN_FILE)) . '/languages/');
+		load_plugin_textdomain('gravityforms-heidelpay', false, plugin_basename(dirname(GFHEIDELPAY_PLUGIN_FILE)) . '/languages/');
 	}
 
 	/**

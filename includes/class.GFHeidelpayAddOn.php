@@ -1022,10 +1022,10 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		$useTest	= !empty($feed['meta']['useTest']);
 		$paymentReq	= new GFHeidelpayPayment($creds, $useTest);
 
-		// generate a unique transaction ID to avoid collisions, e.g. between different installations using the same eWAY account
+		// generate a unique transaction ID to avoid collisions, e.g. between different installations using the same gateway account
 		$transactionID = uniqid();
 
-		// allow plugins/themes to modify transaction ID; NB: must remain unique for eWAY account!
+		// allow plugins/themes to modify transaction ID; NB: must remain unique for gateway account!
 		$transactionID = apply_filters('gfheidelpay_invoice_trans_number', $transactionID, $form);
 
 		switch (rgar($feed['meta'], 'paymentMethod', 'debit')) {
@@ -1381,7 +1381,7 @@ if ($_SERVER['SERVER_NAME'] === 'wattle.webaware.local') {
 				$form = GFFormsModel::get_form_meta($query['form_id']);
 				$lead = GFFormsModel::get_lead($query['lead_id']);
 
-				do_action('gfeway_process_confirmation_parsed', $lead, $form);
+				do_action('gfheidelpay_process_confirmation_parsed', $lead, $form);
 
 				// get confirmation page
 				if (!class_exists('GFFormDisplay', false)) {
@@ -1606,7 +1606,7 @@ if ($_SERVER['SERVER_NAME'] === 'wattle.webaware.local') {
 	}
 
 	/**
-	* get payment note based on payment method, with details, and eWAY response messages
+	* get payment note based on payment method, with details, and gateway response messages
 	* @param bool $capture
 	* @param array $results
 	* @param array $messages
