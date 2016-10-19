@@ -431,6 +431,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 						'label'			=> esc_html_x('Enabled Methods', 'feed field name', 'gravityforms-heidelpay'),
 						'type'			=> 'enabled_methods',
 						'class'			=> 'heidelpay-feed-enabled-methods',
+						'default_value'	=> $this->getDefaultEnabledMethods(),
 					),
 
 					array(
@@ -698,6 +699,31 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	}
 
 	/**
+	* get default selections for Enabled Methods field
+	* @return array
+	*/
+	protected function getDefaultEnabledMethods() {
+		return array(
+			'CC'		=> 1,
+			'DC'		=> 1,
+			'DD'		=> 1,
+			'OT'		=> 1,
+			'VA'		=> 1,
+			'PC'		=> 0,
+			'IV'		=> 0,
+			'PP'		=> 0,
+
+			// credit cards
+			'VISA'		=> 1,
+			'MASTER'	=> 1,
+			'AMEX'		=> 1,
+			'JCB'		=> 1,
+			'DINERS'	=> 0,
+			'DISCOVER'	=> 0,
+		);
+	}
+
+	/**
 	* show an Enabled Methods field
 	* @param array $field
 	* @param bool $echo
@@ -724,31 +750,13 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
         	'DISCOVER'	=> _x('Discover',					'credit cards', 'gravityforms-heidelpay'),
 		);
 
-		$defaults = array(
-			'CC'		=> 1,
-			'DC'		=> 1,
-			'DD'		=> 1,
-			'OT'		=> 1,
-			'VA'		=> 1,
-			'PC'		=> 0,
-			'IV'		=> 0,
-			'PP'		=> 0,
-
-			// credit cards
-			'VISA'		=> 1,
-			'MASTER'	=> 1,
-			'AMEX'		=> 1,
-			'JCB'		=> 1,
-			'DINERS'	=> 0,
-			'DISCOVER'	=> 0,
-		);
-
-		$selections = $this->get_setting($field['name'], $defaults);
+		$selections = $this->get_setting($field['name'], rgar($field, 'default_value'));
 
 		ob_start();
 
 		// hidden field to hold the recorded value
-		$this->settings_hidden(array('name'	=> $field['name'], 'id'	=> $field['name']));
+		$value = rgar($field, 'value') ? rgar($field, 'value') : rgar($field, 'default_value');
+		$this->settings_hidden(array('name'	=> $field['name'], 'id'	=> $field['name'], 'value' => $value));
 
 		// list of checkboxes, recorded in hidden field as JSON via JavaScript event monitoring
 		require GFHEIDELPAY_PLUGIN_ROOT . 'views/admin-feed-settings-enabled-methods.php';
