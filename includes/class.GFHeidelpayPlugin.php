@@ -59,7 +59,6 @@ class GFHeidelpayPlugin {
 
 		if (self::hasMinimumGF()) {
 			// load add-on framework and hook our add-on
-			//~ GFForms::include_feed_addon_framework();
 			GFForms::include_payment_addon_framework();
 
 			require GFHEIDELPAY_PLUGIN_ROOT . 'includes/class.GFHeidelpayAddOn.php';
