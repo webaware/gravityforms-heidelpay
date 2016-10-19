@@ -1,0 +1,22 @@
+/* GF heidelpay admin styling */
+
+select[name="_gaddon_setting_currency"] {
+	font-family: Consolas, Monaco, monospace;
+}
+
+#gaddon-setting-row-delayNotifications .heidelpay-notification-checkbox {
+	margin-left: 2em;
+}
+
+#heidelpay-enabled-methods-creditcards li {
+	margin-left: 2em;
+}
+
+#heidelpay-enabled-methods-creditcards li:last-of-type {
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+.column-feedItem_useTest {
+	width: 6em;
+}
