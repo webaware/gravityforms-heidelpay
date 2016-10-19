@@ -29,31 +29,6 @@ class GFHeidelpayAdmin {
 			return;
 		}
 
-		// need at least PHP 5.2.11 for libxml_disable_entity_loader()
-		$php_min = '5.2.11';
-		if (version_compare(PHP_VERSION, $php_min, '<')) {
-			include GFHEIDELPAY_PLUGIN_ROOT . 'views/requires-php.php';
-		}
-
-		// need these PHP extensions too
-		// NB: libxml / SimpleXML used for version update functions
-		$prereqs = array('libxml', 'pcre', 'SimpleXML', 'xmlwriter');
-		$missing = array();
-		foreach ($prereqs as $ext) {
-			if (!extension_loaded($ext)) {
-				$missing[] = $ext;
-			}
-		}
-		if (!empty($missing)) {
-			include GFHEIDELPAY_PLUGIN_ROOT . 'views/requires-extensions.php';
-		}
-
-		// and PCRE needs to be v8+ or we break! e.g. \K not present until v7.2 and some sites still use v6.6!
-		//~ $pcre_min = '8';
-		//~ if (defined('PCRE_VERSION') && version_compare(PCRE_VERSION, $pcre_min, '<')) {
-			//~ include GFHEIDELPAY_PLUGIN_ROOT . 'views/requires-pcre.php';
-		//~ }
-
 		// and of course, we need Gravity Forms
 		if (!class_exists('GFCommon', false)) {
 			include GFHEIDELPAY_PLUGIN_ROOT . 'views/requires-gravity-forms.php';
