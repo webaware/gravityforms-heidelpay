@@ -1040,9 +1040,6 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 
 		}
 
-		// TODO: support other methods
-		$paymentReq->method = GFHeidelpayPayment::METHOD_CREDIT_CARD;
-
 		$paymentReq->amount					= $formData['payment_amount'];
 		$paymentReq->currencyCode			= $this->getActiveCurrency($feed);
 		$paymentReq->transactionNumber		= $transactionID;

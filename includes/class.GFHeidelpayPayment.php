@@ -382,7 +382,7 @@ class GFHeidelpayPayment {
 	*/
 	protected function getPaymentCode() {
 		// TODO: handle tricky combinations of method and transaction type
-		$paymentCode = sprintf('%s.%s', $this->method, $this->transactionType);
+		$paymentCode = sprintf('%s.%s', self::METHOD_CREDIT_CARD, $this->transactionType);
 
 		return $paymentCode;
 	}
