@@ -45,7 +45,7 @@ class GFHeidelpayPayment {
 	public $useSandbox;
 
 	/**
-	* default TRUE, whether to validate the remote SSL certificate
+	* default TRUE, whether to validate the remote SSL/TLS certificate
 	* @var boolean
 	*/
 	public $sslVerifyPeer;
@@ -273,6 +273,7 @@ class GFHeidelpayPayment {
 		$this->password			= $creds->password;
 		$this->channel			= $creds->channel;
 		$this->useSandbox		= $useSandbox;
+		$this->sslVerifyPeer	= true;
 		$this->httpUserAgent	= 'Gravity Forms heidelpay ' . GFHEIDELPAY_PLUGIN_VERSION;
 	}
 
