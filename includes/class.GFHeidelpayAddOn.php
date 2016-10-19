@@ -59,13 +59,11 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		add_action('wp', array($this, 'processFormConfirmation'), 5);		// process redirect to GF confirmation
 
 		// handle the new Payment Details box
-		//~ add_filter('gform_enable_entry_info_payment_details', '__return_false');
 		add_action('gform_payment_details', array($this, 'gformPaymentDetails'), 10, 2);
 
 		// handle deferrals
 		//~ add_filter('gform_is_delayed_pre_process_feed', array($this, 'gformIsDelayed'), 10, 4);
 		//~ add_filter('gform_disable_post_creation', array($this, 'gformDelayPost'), 10, 3);
-		//~ add_filter('gform_disable_notification', array($this, 'gformDelayNotification'), 10, 4);
 
 		$this->defaultCurrency = GFCommon::get_currency();
 	}
@@ -446,23 +444,6 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 					),
 
 					array(
-						'name'			=> 'delayNotify',
-						'label'			=> esc_html_x('Notifications', 'feed field name', 'gravityforms-heidelpay'),
-						'type'			=> 'checkbox',
-						'choices'		=> array(
-							array('name' => 'delayNotify', 'label' => esc_html__('Send notifications only when transaction completes', 'gravityforms-heidelpay')),
-						),
-						'tooltip'		=> __('Delayed notifications will be processed regardless of transaction status. You can make notifications conditional on AuthCode "is not" an empty field for successful transactions, or "is" an empty field for failed or canceled transactions.', 'gravityforms-heidelpay'),
-					),
-
-					array(
-						'name'			=> 'delayNotifications',
-						'label'			=> '',
-						'type'			=> 'heidelpay_notifications',
-						'class'			=> 'heidelpay-feed-notifications',
-					),
-
-					array(
 						'name'			=> 'delayPost',
 						'label'			=> esc_html_x('Create Post', 'feed field name', 'gravityforms-heidelpay'),
 						'type'			=> 'checkbox',
@@ -760,35 +741,6 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 
 		// list of checkboxes, recorded in hidden field as JSON via JavaScript event monitoring
 		require GFHEIDELPAY_PLUGIN_ROOT . 'views/admin-feed-settings-enabled-methods.php';
-
-		$html = ob_get_clean();
-
-		if ($echo) {
-			echo $html;
-		}
-
-		return $html;
-	}
-
-	/**
-	* show a Delay Notifications field
-	* @param array $field
-	* @param bool $echo
-	* @return string
-	*/
-	public function settings_heidelpay_notifications($field, $echo = true) {
-		$form = $this->get_current_form();
-
-		$notifications = GFCommon::get_notifications('form_submission', $form);
-		$selections = $this->get_setting($field['name']);
-
-		ob_start();
-
-		// hidden field to hold the recorded value
-		$this->settings_hidden(array('name'	=> $field['name'], 'id'	=> $field['name']));
-
-		// list of checkboxes, recorded in hidden field as JSON via JavaScript event monitoring
-		require GFHEIDELPAY_PLUGIN_ROOT . 'views/admin-feed-settings-notifications.php';
 
 		$html = ob_get_clean();
 
