@@ -62,8 +62,8 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		add_action('gform_payment_details', array($this, 'gformPaymentDetails'), 10, 2);
 
 		// handle deferrals
-		//~ add_filter('gform_is_delayed_pre_process_feed', array($this, 'gformIsDelayed'), 10, 4);
-		//~ add_filter('gform_disable_post_creation', array($this, 'gformDelayPost'), 10, 3);
+		add_filter('gform_is_delayed_pre_process_feed', array($this, 'gformIsDelayed'), 10, 4);
+		add_filter('gform_disable_post_creation', array($this, 'gformDelayPost'), 10, 3);
 
 		$this->defaultCurrency = GFCommon::get_currency();
 	}
@@ -1256,15 +1256,15 @@ if ($_SERVER['SERVER_NAME'] === 'wattle.webaware.local') {
 				}
 
 				// if order hasn't been fulfilled, process any deferred actions
-				//~ if ($initial_status === 'Processing') {
-					//~ self::log_debug('processing deferred actions');
+				if ($initial_status === 'Processing') {
+					$this->log_debug('processing deferred actions');
 
-					//~ $this->processDelayed($feed, $entry, $form);
+					$this->processDelayed($feed, $entry, $form);
 
-					//~ // allow hookers to trigger their own actions
-					//~ $hook_status = $transaction->TransactionStatus ? 'approved' : 'failed';
-					//~ do_action("gfheidelpay_process_{$hook_status}", $entry, $form, $feed);
-				//~ }
+					// allow hookers to trigger their own actions
+					$hook_status = $response->PROCESSING_RESULT === 'ACK' ? 'approved' : 'failed';
+					do_action("gfheidelpay_process_{$hook_status}", $entry, $form, $feed);
+				}
 			}
 
 			if ($entry['payment_status'] === 'Failed' && $feed['meta']['cancelURL']) {
@@ -1290,6 +1290,86 @@ if ($_SERVER['SERVER_NAME'] === 'wattle.webaware.local') {
 			echo nl2br(esc_html($e->getMessage()));
 			self::log_error(__FUNCTION__ . ': ' . $e->getMessage());
 			exit;
+		}
+	}
+
+	/**
+	* filter whether post creation from form is enabled (yet)
+	* @param bool $is_delayed
+	* @param array $form
+	* @param array $entry
+	* @return bool
+	*/
+	public function gformDelayPost($is_delayed, $form, $entry) {
+		$feed = $this->getFeed($entry['id']);
+
+		if ($entry['payment_status'] === 'Processing' && !empty($feed['meta']['delayPost'])) {
+			$is_delayed = true;
+			$this->log_debug(sprintf('delay post creation: form id %s, lead id %s', $form['id'], $entry['id']));
+		}
+
+		return $is_delayed;
+	}
+
+	/**
+	* filter whether form delays some actions (e.g. MailChimp)
+	* @param bool $is_delayed
+	* @param array $form
+	* @param array $entry
+	* @param string $addon_slug
+	* @return bool
+	*/
+	public function gformIsDelayed($is_delayed, $form, $entry, $addon_slug) {
+		if ($entry['payment_status'] === 'Processing') {
+			$feed = $this->getFeed($entry['id']);
+
+			if ($feed) {
+
+				switch ($addon_slug) {
+
+					case 'gravityformsmailchimp':
+						if (!empty($feed['meta']['delayMailchimp'])) {
+							$is_delayed = true;
+							$this->log_debug(sprintf('delay MailChimp registration: form id %s, lead id %s', $form['id'], $entry['id']));
+						}
+						break;
+
+					case 'gravityformsuserregistration':
+						if (!empty($feed['meta']['delayUserrego'])) {
+							$is_delayed = true;
+							$this->log_debug(sprintf('delay user registration: form id %s, lead id %s', $form['id'], $entry['id']));
+						}
+						break;
+
+				}
+
+			}
+
+		}
+
+		return $is_delayed;
+	}
+
+	/**
+	* process any delayed actions
+	* @param array $feed
+	* @param array $entry
+	* @param array $form
+	*/
+	protected function processDelayed($feed, $entry, $form) {
+		// default to only performing delayed actions if payment was successful, unless feed opts to always execute
+		// can filter each delayed action to permit / deny execution
+		$execute_delayed = in_array($entry['payment_status'], array('Paid', 'Pending')) || $feed['meta']['execDelayedAlways'];
+
+		if ($feed['meta']['delayPost']) {
+			if (apply_filters('gfheidelpay_delayed_post_create', $execute_delayed, $entry, $form, $feed)) {
+				$this->log_debug(sprintf('executing delayed post creation; form id %s, lead id %s', $form['id'], $entry['id']));
+				GFFormsModel::create_post($form, $entry);
+			}
+		}
+
+		if ($execute_delayed) {
+			do_action('gform_paypal_fulfillment', $entry, $feed, $entry['transaction_id'], $entry['payment_amount']);
 		}
 	}
 
