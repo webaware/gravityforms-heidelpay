@@ -1,0 +1,645 @@
+# Copyright (C) 2016 WebAware
+# This file is distributed under the same license as the Gravity Forms heidelpay package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Gravity Forms heidelpay 0.0.3\n"
+"Report-Msgid-Bugs-To: translate@webaware.com.au\n"
+"POT-Creation-Date: 2016-10-25 07:15:18+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Last-Translator: WebAware <translate@webaware.com.au>\n"
+"Language-Team: WebAware <translate@webaware.com.au>\n"
+"X-Generator: grunt-wp-i18n 0.5.4\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Textdomain-Support: yes\n"
+
+#: includes/class.GFHeidelpayAddOn.php:157
+msgid "heidelpay settings"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:175
+msgid "Live settings"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:176
+msgid ""
+"These are default settings. Feeds can specify different settings to "
+"override these settings."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:184
+msgid "Contact heidelpay customer support to get your sender ID."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:192
+msgid "Contact heidelpay customer support to get your user login."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:200
+msgid "Contact heidelpay customer support to get your user password."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:209
+msgid "Contact heidelpay customer support to get your channel ID for CHANNEL OT."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:214
+msgid "Settings updated"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:229
+msgid "heidelpay transaction settings"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:289
+msgid "Give this feed a name, to differentiate it from other feeds."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:297
+msgid ""
+"Credit cards will not be processed in Test mode. Special card numbers must "
+"be used."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:315
+msgid ""
+"Debit processes the payment immediately. Authorize reserves the amount on "
+"the customer's card or account for processing later."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:328
+msgid "Enable 3D-secure when the feed is set to Test mode"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:337
+msgid ""
+"You can use different connection settings and currency for each feed if you "
+"need to."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:339
+msgid "Override the default connection settings, just for this feed"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:351
+msgid "Connection Settings"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:361
+msgid ""
+"You can use a different sender ID for this feed, or leave it blank to use "
+"the add-on settings."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:370
+msgid ""
+"You can use a different login for this feed, or leave it blank to use the "
+"add-on settings."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:379
+msgid ""
+"You can use a different password for this feed, or leave it blank to use "
+"the add-on settings."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:388
+msgid ""
+"You can use a different channel ID for this feed, or leave it blank to use "
+"the add-on settings."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:395
+msgid ""
+"You can use a different currency for this feed, or use the Gravity Forms "
+"settings."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:396
+msgid "Use default currency"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:407
+msgid "Mapped Field Settings"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:424
+msgid "Hosted Page Settings"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:442
+msgid "Redirect to this URL if the transaction is canceled."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:444
+msgid ""
+"Please note: standard Gravity Forms submission logic applies if the "
+"transaction is successful."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:452
+msgid "Create post only when transaction completes"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:461
+msgid "Subscribe user to MailChimp only when transaction completes"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:470
+msgid "Register user only when transaction completes"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:479
+msgid "Always execute delayed actions, regardless of payment status"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:482
+msgid ""
+"The delayed actions above will only be processed for successful "
+"transactions, unless this option is enabled."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:493
+msgid "Feed Conditions"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:502
+msgid ""
+"When the heidelpay condition is enabled, form submissions will only be sent "
+"to heidelpay when the condition is met. When disabled, all form submissions "
+"will be sent to heidelpay."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:773
+#. translators: 1: currency code; 2: currency name
+msgid "%1$s &mdash; %2$s"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:852
+msgid "Payment already submitted and processed - please close your browser window."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:887
+msgid "Incomplete credentials for heidelpay payment; please tell the web master."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:951
+msgid "Transaction request failed"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1192
+msgid "Invalid entry ID: %s"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1415
+msgid "Payment information was manually updated."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1419
+#. translators: 1: old payment status; 2: new payment status
+msgid "Payment status changed from %1$s to %2$s."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1691
+msgid "Payment has been captured successfully. Amount: %1$s. Transaction ID: %2$s."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1694
+msgid ""
+"Payment has been authorized successfully. Amount: %1$s. Transaction ID: "
+"%2$s."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1717
+msgid "Payment authorization failed."
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1721
+msgid "Failed to capture payment."
+msgstr ""
+
+#: includes/class.GFHeidelpayPayment.php:310
+msgid "Amount must be given as a number in currency format"
+msgstr ""
+
+#: includes/class.GFHeidelpayPayment.php:475
+#: includes/class.GFHeidelpayPayment.php:484
+msgid "Error posting heidelpay request: %s"
+msgstr ""
+
+#: includes/class.GFHeidelpayPayment.php:488
+#. translators: 1. the error code; 2. the error message
+msgid "Error posting heidelpay request: %1$s, %2$s"
+msgstr ""
+
+#: includes/class.GFHeidelpayResponseCallback.php:198
+msgid "Invalid response from heidelpay for Shared Page callback"
+msgstr ""
+
+#: includes/class.GFHeidelpayResponseSharedPage.php:51
+msgid "Invalid response from heidelpay for Shared Page request"
+msgstr ""
+
+#: views/error-payment-failure.php:12
+msgid "heidelpay payment request error"
+msgstr ""
+
+#: views/requires-gravity-forms-upgrade.php:8
+msgid ""
+"Gravity Forms heidelpay requires <a target=\"_blank\" href=\"%1$s\">Gravity "
+"Forms</a> version %2$s or higher; your website has Gravity Forms version "
+"%3$s"
+msgstr ""
+
+#: views/requires-gravity-forms.php:8
+msgid ""
+"Gravity Forms heidelpay requires <a target=\"_blank\" href=\"%s\">Gravity "
+"Forms</a> to be installed and activated."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Gravity Forms heidelpay"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://www.sri-lanka-visa.org/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Easily create online payment forms with Gravity Forms and heidelpay."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WebAware"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://shop.webaware.com.au/"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:76
+msgctxt "add-on full title"
+msgid "heidelpay"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:77
+msgctxt "add-on short title"
+msgid "heidelpay"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:181
+#: includes/class.GFHeidelpayAddOn.php:357
+msgctxt "feed field name"
+msgid "Sender ID"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:189
+#: includes/class.GFHeidelpayAddOn.php:366
+msgctxt "feed field name"
+msgid "User Login"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:197
+#: includes/class.GFHeidelpayAddOn.php:375
+msgctxt "feed field name"
+msgid "User Password"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:206
+#. translators: field name for CHANNEL OT channel ID
+msgctxt "feed field name"
+msgid "Channel OT"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:238
+#: includes/class.GFHeidelpayAddOn.php:286
+msgctxt "feed field name"
+msgid "Feed name"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:313
+msgctxt "feed field name"
+msgid "Payment Method"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:325
+msgctxt "feed field name"
+msgid "Test 3D-secure"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:335
+msgctxt "feed field name"
+msgid "Customize Connection"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:384
+msgctxt "feed field name"
+msgid "Channel ID"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:393
+msgctxt "feed field name"
+msgid "Currency"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:430
+msgctxt "feed field name"
+msgid "Enabled Methods"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:438
+msgctxt "feed field name"
+msgid "Cancel URL"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:449
+msgctxt "feed field name"
+msgid "Create Post"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:458
+msgctxt "feed field name"
+msgid "MailChimp Subscription"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:467
+msgctxt "feed field name"
+msgid "User Registration"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:476
+msgctxt "feed field name"
+msgid "Always Execute"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:498
+msgctxt "feed field name"
+msgid "heidelpay condition"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:239
+#: includes/class.GFHeidelpayAddOn.php:295
+msgctxt "payment transaction mode"
+msgid "Mode"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:254
+#: includes/class.GFHeidelpayAddOn.php:299
+msgctxt "payment transaction mode"
+msgid "Live"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:258
+#: includes/class.GFHeidelpayAddOn.php:300
+msgctxt "payment transaction mode"
+msgid "Test"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:317
+msgctxt "payment method"
+msgid "Debit"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:318
+msgctxt "payment method"
+msgid "Authorize"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:716
+msgctxt "payment method"
+msgid "Credit Card"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:717
+msgctxt "payment method"
+msgid "Debit Card"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:718
+msgctxt "payment method"
+msgid "Direct Debit"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:719
+msgctxt "payment method"
+msgid "Online Transfer"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:720
+msgctxt "payment method"
+msgid "PayPal"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:721
+msgctxt "payment method"
+msgid "Payment Card"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:722
+msgctxt "payment method"
+msgid "Invoice"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:723
+msgctxt "payment method"
+msgid "Prepayment"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:360
+#: includes/class.GFHeidelpayAddOn.php:369
+#: includes/class.GFHeidelpayAddOn.php:378
+#: includes/class.GFHeidelpayAddOn.php:387
+msgctxt "field placeholder"
+msgid "Leave empty to use add-on settings"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:441
+msgctxt "field placeholder"
+msgid "Leave empty to use default Gravity Forms confirmation handler"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:501
+msgctxt "feed conditions"
+msgid "Send to heidelpay if"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:520
+msgctxt "mapped fields title"
+msgid "heidelpay field"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:592
+msgctxt "mapped field name"
+msgid "Invoice Description"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:597
+msgctxt "mapped field name"
+msgid "Customer Title"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:602
+msgctxt "mapped field name"
+msgid "Customer First Name"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:607
+msgctxt "mapped field name"
+msgid "Customer Last Name"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:612
+msgctxt "mapped field name"
+msgid "Birth Date"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:617
+msgctxt "mapped field name"
+msgid "Company Name"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:622
+msgctxt "mapped field name"
+msgid "Email"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:627
+msgctxt "mapped field name"
+msgid "Address"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:632
+msgctxt "mapped field name"
+msgid "Address 2"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:637
+msgctxt "mapped field name"
+msgid "City"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:642
+msgctxt "mapped field name"
+msgid "State"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:647
+msgctxt "mapped field name"
+msgid "Postcode"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:652
+msgctxt "mapped field name"
+msgid "Country"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:657
+msgctxt "mapped field name"
+msgid "Phone"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:662
+msgctxt "mapped field name"
+msgid "Mobile"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:727
+msgctxt "credit cards"
+msgid "Visa"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:728
+msgctxt "credit cards"
+msgid "Mastercard"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:729
+msgctxt "credit cards"
+msgid "American Express"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:730
+msgctxt "credit cards"
+msgid "Japan Credit Bureau (JCB)"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:731
+msgctxt "credit cards"
+msgid "Diners Club"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:732
+msgctxt "credit cards"
+msgid "Discover"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1494
+msgctxt "notification event"
+msgid "Payment Completed"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1495
+msgctxt "notification event"
+msgid "Payment Failed"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1517
+msgctxt "entry meta label"
+msgid "heidelpay short ID"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1526
+msgctxt "entry meta label"
+msgid "heidelpay return code"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1550
+msgctxt "merge tag label"
+msgid "Transaction ID"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1551
+msgctxt "merge tag label"
+msgid "Short ID"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1552
+msgctxt "merge tag label"
+msgid "Return Code"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1553
+msgctxt "merge tag label"
+msgid "Payment Amount"
+msgstr ""
+
+#: includes/class.GFHeidelpayAddOn.php:1554
+msgctxt "merge tag label"
+msgid "Payment Status"
+msgstr ""
+
+#: includes/class.GFHeidelpayAdmin.php:59
+msgctxt "plugin details links"
+msgid "Translate"
+msgstr ""
+
+#: views/admin-entry-payment-details.php:9
+msgctxt "entry details"
+msgid "Short ID:"
+msgstr ""
+
+#: views/admin-entry-payment-details.php:16
+msgctxt "entry details"
+msgid "Return Code:"
+msgstr ""
