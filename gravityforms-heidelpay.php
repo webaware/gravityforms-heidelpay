@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Gravity Forms heidelpay
-Plugin URI:
+Plugin URI: https://www.sri-lanka-visa.org/
 Description: Easily create online payment forms with Gravity Forms and heidelpay.
 Version: 0.0.3
 Author: WebAware

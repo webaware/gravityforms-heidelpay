@@ -56,8 +56,6 @@ class GFHeidelpayAdmin {
 	*/
 	public function pluginDetailsLinks($links, $file) {
 		if ($file === GFHEIDELPAY_PLUGIN_NAME) {
-			//~ $links[] = sprintf('<a href="https://gfheidelpay.webaware.net.au/" target="_blank">%s</a>', esc_html_x('Instructions', 'plugin details links', 'gravityforms-heidelpay'));
-			//~ $links[] = sprintf('<a href="https://shop.webaware.com.au/support/?for=Support+--+Gravity+Forms+heidelpay" target="_blank">%s</a>', esc_html_x('Get Help', 'plugin details links', 'gravityforms-heidelpay'));
 			$links[] = sprintf('<a href="https://translate.webaware.com.au/projects/gravityforms-heidelpay" target="_blank">%s</a>', esc_html_x('Translate', 'plugin details links', 'gravityforms-heidelpay'));
 		}
 
