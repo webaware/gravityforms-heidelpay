@@ -52,7 +52,8 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		parent::__construct();
 
 		add_action('init', array($this, 'lateLocalise'), 50);
-		add_filter('gform_pre_render', array($this, 'gformPreRender'));
+		add_filter('gform_pre_render', array($this, 'detectFeedCurrency'));
+		add_filter('gform_validation', array($this, 'preValidate'), 15);
 		add_filter('gform_validation_message', array($this, 'gformValidationMessage'), 10, 2);
 		add_filter('gform_custom_merge_tags', array($this, 'gformCustomMergeTags'), 10, 4);
 		add_filter('gform_replace_merge_tags', array($this, 'gformReplaceMergeTags'), 10, 7);
@@ -779,34 +780,44 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	}
 
 	/**
-	* steps prior to form rendering on front end
+	* detect that active feed is modifying currency, set currency hooks
 	* @param array $form
 	* @return array
 	*/
-	public function gformPreRender($form) {
+	public function detectFeedCurrency($form) {
 		$this->currency = null;
 
-		if (self::hasProductFields($form)) {
-			$feeds = $this->get_active_feeds($form['id']);
+		$feeds = $this->get_active_feeds($form['id']);
 
-			foreach ($feeds as $feed) {
-				// must meet feed conditions, if any
-				if (!$this->is_feed_condition_met($feed, $form, array())) {
-					continue;
-				}
+		foreach ($feeds as $feed) {
+			// must meet feed conditions, if any
+			if (!$this->is_feed_condition_met($feed, $form, array())) {
+				continue;
+			}
 
-				// pick up the currency of this feed, if different to global setting
-				$feedCurrency = $this->getActiveCurrency($feed);
-				if ($this->defaultCurrency !== $feedCurrency) {
-					$this->currency = $feedCurrency;
-					add_filter('gform_currency', array($this, 'gformCurrency'));
-					break;
-				}
-
+			// pick up the currency of this feed, if different to global setting
+			$feedCurrency = $this->getActiveCurrency($feed);
+			if ($this->defaultCurrency !== $feedCurrency) {
+				$this->currency = $feedCurrency;
+				add_filter('gform_currency', array($this, 'gformCurrency'));
+				break;
 			}
 		}
 
 		return $form;
+	}
+
+	/**
+	* steps prior to form validation
+	* @param array $validation_result
+	* @return array
+	*/
+	public function preValidate($validation_result) {
+		$form = $validation_result['form'];
+
+		$this->detectFeedCurrency($form);
+
+		return $validation_result;
 	}
 
 	/**
@@ -839,12 +850,6 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 				// make sure form hasn't already been submitted / processed
 				if ($this->hasFormBeenProcessed($form)) {
 					throw new GFHeidelpayException(__('Payment already submitted and processed - please close your browser window.', 'gravityforms-heidelpay'));
-				}
-
-				// maybe set hooks for changing form currency
-				if (!is_null($this->currency)) {
-					add_filter('gform_currency_pre_save_entry', array($this, 'gformCurrency'));
-					add_action('gform_entry_created', array($this, 'gformCurrencyEndSave'));
 				}
 
 				// set hook to request redirect URL
@@ -886,8 +891,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 			$feedCurrency = $this->getActiveCurrency($feed);
 			if (is_null($this->currency) && $this->defaultCurrency !== $feedCurrency) {
 				$this->currency = $feedCurrency;
-				add_filter('gform_currency_pre_save_entry', array($this, 'gformCurrency'));
-				add_action('gform_entry_created', array($this, 'gformCurrencyEndSave'));
+				add_filter('gform_currency', array($this, 'gformCurrency'));
 			}
 		}
 
@@ -1127,13 +1131,6 @@ if ($_SERVER['SERVER_NAME'] === 'wattle.webaware.local') {
 		}
 
 		return $currency;
-	}
-
-	/**
-	* if we hooked in to modify the entry currency, unhook now
-	*/
-	public function gformCurrencyEndSave() {
-		remove_filter('gform_currency_pre_save_entry', array($this, 'gformCurrency'));
 	}
 
 	/**
