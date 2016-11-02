@@ -361,6 +361,7 @@ class GFHeidelpayPayment {
 		$request['ADDRESS.STREET']					= substr(implode(' ', array($this->address1, $this->address2)), 0, 50);
 		$request['ADDRESS.ZIP']						= substr($this->postcode, 0, 10);
 		$request['ADDRESS.CITY']					= substr($this->suburb, 0, 30);
+		$request['ADDRESS.STATE']					= substr($this->state, 0, 30);
 		$request['ADDRESS.COUNTRY']					= $this->country;
 		$request['CONTACT.EMAIL']					= substr($this->emailAddress, 0, 128);
 		$request['CONTACT.PHONE']					= substr($this->phone, 0, 20);
