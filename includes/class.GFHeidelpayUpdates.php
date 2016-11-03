@@ -118,14 +118,14 @@ class GFHeidelpayUpdates {
 		}
 
 		$current = $this->getPluginData();
-		$info = $this->getLatestVersionInfo();
+		$version_info = $this->getLatestVersionInfo();
 
-		if ($info && version_compare($current['Version'], $info->new_version, '<')) {
+		if ($version_info && version_compare($current['Version'], $version_info->new_version, '<')) {
 			// build a plugin list row, with update notification
 			$wp_list_table = _get_list_table( 'WP_Plugins_List_Table' );
-			$plugin_name   = esc_html( $info->name );
-			$plugin_slug   = esc_html( $info->slug );
-			$new_version   = esc_html( $info->new_version );
+			$plugin_name   = esc_html( $version_info->name );
+			$plugin_slug   = esc_html( $version_info->slug );
+			$new_version   = esc_html( $version_info->new_version );
 
 			include GFHEIDELPAY_PLUGIN_ROOT . 'views/admin-plugin-update-upgrade.php';
 		}
