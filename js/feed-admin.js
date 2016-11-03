@@ -1,5 +1,3 @@
-// Gravity Forms heidelpay feed admin script
-
 (function($) {
 
 	/**
