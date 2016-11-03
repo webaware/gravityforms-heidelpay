@@ -14,8 +14,13 @@
   },
   "author": {
 	  "name": "WebAware",
+	  "email": "support@webaware.com.au",
+	  "url": "https://shop.webaware.com.au/"
+  },
+  "translator": {
+	  "name": "WebAware",
 	  "email": "translate@webaware.com.au",
-	  "url": "https://www.sri-lanka-visa.org/"
+	  "url": "https://translate.webaware.com.au/projects/gravityforms-heidelpay"
   },
   "license": "GPL-2.0",
   "private": true,

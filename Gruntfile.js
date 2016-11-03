@@ -50,7 +50,8 @@ module.exports = function (grunt) {
 		uglify: {
 			build: {
 				options: {
-					preserveComments: /^!/
+					ASCIIOnly: true,
+					banner: "// <%= pkg.name %>\n// <%= pkg.homepage %>\n"
 				},
 				files: [{
 					expand: true,
@@ -80,9 +81,10 @@ module.exports = function (grunt) {
 						poedit: true,
 						"x-poedit-keywordslist": true,
 						"x-poedit-sourcecharset": "UTF-8",
-						"report-msgid-bugs-to":	"<%= pkg.author.email %>",
-						"Last-Translator": "<%= pkg.author.name %> <<%= pkg.author.email %>>",
-						"Language-Team": "<%= pkg.author.name %> <<%= pkg.author.email %>>"
+						"x-translation-home": "<%= pkg.translator.url %>",
+						"Report-Msgid-Bugs-To":	"<%= pkg.translator.email %>",
+						"Last-Translator": "<%= pkg.translator.name %> <<%= pkg.translator.email %>>",
+						"Language-Team": "<%= pkg.translator.name %> <<%= pkg.translator.email %>>"
 					}
 				}
 			}
