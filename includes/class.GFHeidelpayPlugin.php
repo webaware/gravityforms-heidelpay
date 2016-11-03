@@ -47,6 +47,10 @@ class GFHeidelpayPlugin {
 			require GFHEIDELPAY_PLUGIN_ROOT . 'includes/class.GFHeidelpayAdmin.php';
 			new GFHeidelpayAdmin();
 		}
+
+		// handle automatic updates
+		require GFHEIDELPAY_PLUGIN_ROOT . 'includes/class.GFHeidelpayUpdates.php';
+		new GFHeidelpayUpdates();
 	}
 
 	/**
