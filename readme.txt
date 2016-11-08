@@ -5,7 +5,7 @@ Plugin URI: https://www.sri-lanka-visa.org/
 Author: WebAware
 Author URI: https://shop.webaware.com.au/
 Requires at least: 4.2
-Tested up to: 4.6.1
+Tested up to: 4.7
 Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -28,6 +28,6 @@ Please email a detailed report of your problem to [support@webaware.com.au](mail
 
 == Changelog ==
 
-### 1.0.0, soon...
+### 1.0.0, 2016-11-09
 
 * initial public release

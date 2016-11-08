@@ -1096,11 +1096,6 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 
 		$url = home_url('/');
 
-// TODO: remove for production
-if ($_SERVER['SERVER_NAME'] === 'wattle.webaware.local') {
-	$url = 'http://test.webaware.com.au/heidelpay.php';
-}
-
 		$url = add_query_arg($args, $url);
 
 		return $url;
