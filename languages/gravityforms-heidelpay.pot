@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Gravity Forms heidelpay package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Gravity Forms heidelpay 1.0.0-alpha1\n"
+"Project-Id-Version: Gravity Forms heidelpay 1.0.0\n"
 "Report-Msgid-Bugs-To: translate@webaware.com.au\n"
-"POT-Creation-Date: 2016-11-03 08:55:02+00:00\n"
+"POT-Creation-Date: 2016-11-09 01:51:40+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -200,34 +200,34 @@ msgstr ""
 msgid "Transaction request failed"
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1192
+#: includes/class.GFHeidelpayAddOn.php:1187
 msgid "Invalid entry ID: %s"
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1415
+#: includes/class.GFHeidelpayAddOn.php:1410
 msgid "Payment information was manually updated."
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1419
+#: includes/class.GFHeidelpayAddOn.php:1414
 #. translators: 1: old payment status; 2: new payment status
 msgid "Payment status changed from %1$s to %2$s."
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1691
+#: includes/class.GFHeidelpayAddOn.php:1686
 msgid "Payment has been captured successfully. Amount: %1$s. Transaction ID: %2$s."
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1694
+#: includes/class.GFHeidelpayAddOn.php:1689
 msgid ""
 "Payment has been authorized successfully. Amount: %1$s. Transaction ID: "
 "%2$s."
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1717
+#: includes/class.GFHeidelpayAddOn.php:1712
 msgid "Payment authorization failed."
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1721
+#: includes/class.GFHeidelpayAddOn.php:1716
 msgid "Failed to capture payment."
 msgstr ""
 
@@ -586,47 +586,47 @@ msgctxt "credit cards"
 msgid "Discover"
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1494
+#: includes/class.GFHeidelpayAddOn.php:1489
 msgctxt "notification event"
 msgid "Payment Completed"
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1495
+#: includes/class.GFHeidelpayAddOn.php:1490
 msgctxt "notification event"
 msgid "Payment Failed"
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1517
+#: includes/class.GFHeidelpayAddOn.php:1512
 msgctxt "entry meta label"
 msgid "heidelpay short ID"
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1526
+#: includes/class.GFHeidelpayAddOn.php:1521
 msgctxt "entry meta label"
 msgid "heidelpay return code"
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1550
+#: includes/class.GFHeidelpayAddOn.php:1545
 msgctxt "merge tag label"
 msgid "Transaction ID"
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1551
+#: includes/class.GFHeidelpayAddOn.php:1546
 msgctxt "merge tag label"
 msgid "Short ID"
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1552
+#: includes/class.GFHeidelpayAddOn.php:1547
 msgctxt "merge tag label"
 msgid "Return Code"
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1553
+#: includes/class.GFHeidelpayAddOn.php:1548
 msgctxt "merge tag label"
 msgid "Payment Amount"
 msgstr ""
 
-#: includes/class.GFHeidelpayAddOn.php:1554
+#: includes/class.GFHeidelpayAddOn.php:1549
 msgctxt "merge tag label"
 msgid "Payment Status"
 msgstr ""
