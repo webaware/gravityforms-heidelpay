@@ -52,6 +52,7 @@ class GFHeidelpayUpdates {
 			$update->package		= $latest->download_link;
 			$update->author			= $latest->author;
 			$update->contributors	= $latest->contributors;
+			$update->upgrade_notice	= $latest->upgrade_notice;
 
 			// duplicate version member for plugin info pop-up
 			$update->version		= $update->new_version;
