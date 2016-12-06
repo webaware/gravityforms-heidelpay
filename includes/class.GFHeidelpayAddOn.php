@@ -1565,6 +1565,11 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	* @return string
 	*/
 	public function gformReplaceMergeTags($text, $form, $entry, $url_encode, $esc_html, $nl2br, $format) {
+		// handle invalid calls, e.g. Gravity Forms User Registration login widget
+		if (empty($form['id'])) {
+			return $text;
+		}
+
 		$gateway = gform_get_meta($entry['id'], 'payment_gateway');
 
 		if ($gateway === $this->_slug) {
