@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 class GFHeidelpayUpdates {
 
 	const TRANSIENT_UPDATE_INFO		= 'gravityforms-heidelpay-update_info';
-	const URL_UPDATE_INFO			= 'https://www.dropbox.com/s/0aho2hjvz9gz23t/gravityforms-heidelpay.json?dl=1';
+	const URL_UPDATE_INFO			= 'https://dl.dropboxusercontent.com/u/26305751/gfheidelpay/gravityforms-heidelpay.json';
 
 	public function __construct() {
 		$this->name = GFHEIDELPAY_PLUGIN_NAME;
