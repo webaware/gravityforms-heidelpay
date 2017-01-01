@@ -1,6 +1,6 @@
 {
   "name": "gravityforms-heidelpay",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Easily create online payment forms with Gravity Forms and heidelpay.",
   "main": "Gruntfile.js",
   "devDependencies": {

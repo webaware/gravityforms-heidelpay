@@ -6,7 +6,7 @@ Author: WebAware
 Author URI: https://shop.webaware.com.au/
 Requires at least: 4.2
 Tested up to: 4.7
-Stable tag: 1.0.1
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,11 +28,15 @@ Please email a detailed report of your problem to [support@webaware.com.au](mail
 
 == Upgrade Notice ==
 
-= 1.0.1 =
+= 1.0.2 =
 
-fixed undefined index errors on `gform_replace_merge_tags` hook, e.g. with GF User Registration login widget
+fixed settings and feeds menu items disappearing when Members plugin used to set Gravity Forms permissions
 
 == Changelog ==
+
+### 1.0.2, 2017-01-01
+
+* fixed: settings and feeds menu items disappear when Members plugin used to set Gravity Forms permissions
 
 ### 1.0.1, 2016-12-07
 
