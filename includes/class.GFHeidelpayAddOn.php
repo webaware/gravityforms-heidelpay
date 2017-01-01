@@ -16,33 +16,6 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	protected $currency = null;							// current currency as detected in validation step, via feed settings
 	protected $feedDefaultFieldMap;						// map of default fields for feed
 
-	/**
-	* Defines the capabilities needed for the Mailchimp Add-On
-	* @var    array $_capabilities The capabilities needed for the Add-On
-	*/
-	protected $_capabilities = array('gravityforms_heidelpay', 'gravityforms_heidelpay_uninstall');
-
-	/**
-	* Defines the capability needed to access the Add-On settings page.
-	* @var    string $_capabilities_settings_page The capability needed to access the Add-On settings page.
-	*/
-	protected $_capabilities_settings_page = 'gravityforms_heidelpay';
-
-	/**
-	* Defines the capability needed to access the Add-On form settings page.
-	* @var    string $_capabilities_form_settings The capability needed to access the Add-On form settings page.
-	*/
-	protected $_capabilities_form_settings = 'gravityforms_heidelpay';
-
-	/**
-	* Defines the capability needed to uninstall the Add-On.
-	*
-	* @since  3.0
-	* @access protected
-	* @var    string $_capabilities_uninstall The capability needed to uninstall the Add-On.
-	*/
-	protected $_capabilities_uninstall = 'gravityforms_heidelpay_uninstall';
-
 	const META_TRANSACTION_ID				= 'heidelpay_txn_id';
 	const META_SHORT_ID						= 'heidelpay_short_id';
 	const META_RETURN_CODE					= 'heidelpay_return_code';
@@ -75,6 +48,12 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		$this->_title						= 'heidelpay';					// NB: no localisation yet
 		$this->_short_title					= 'heidelpay';					// NB: no localisation yet
 		$this->_supports_callbacks			= true;
+
+		// define capabilities so that they can be assigned by role/permissions editors (e.g. Members plugin)
+		$this->_capabilities				= array('gravityforms_heidelpay', 'gravityforms_heidelpay_uninstall');
+		$this->_capabilities_settings_page	= 'gravityforms_heidelpay';
+		$this->_capabilities_form_settings	= 'gravityforms_heidelpay';
+		$this->_capabilities_uninstall		= 'gravityforms_heidelpay_uninstall';
 
 		parent::__construct();
 
