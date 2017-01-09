@@ -6,7 +6,7 @@ Author: WebAware
 Author URI: https://shop.webaware.com.au/
 Requires at least: 4.2
 Tested up to: 4.7
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -28,11 +28,15 @@ Please email a detailed report of your problem to [support@webaware.com.au](mail
 
 == Upgrade Notice ==
 
-= 1.0.2 =
+= 1.0.3 =
 
-fixed settings and feeds menu items disappearing when Members plugin used to set Gravity Forms permissions
+fixed: Address line 2 should not be marked as mandatory in the field mappings, because it isn't required
 
 == Changelog ==
+
+### 1.0.3, 2017-01-09
+
+* fixed: Address line 2 should not be marked as mandatory in the field mappings, because it isn't required
 
 ### 1.0.2, 2017-01-01
 

@@ -2,7 +2,7 @@
 
 ## Changelog
 
-### 1.0.3, soon...
+### 1.0.3, 2017-01-09
 
 * fixed: Address line 2 should not be marked as mandatory in the field mappings, because it isn't required
 
