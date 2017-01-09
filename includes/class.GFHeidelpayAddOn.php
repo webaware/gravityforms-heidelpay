@@ -636,7 +636,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 			array(
 				'name' => 'address2',
 				'label' => esc_html_x('Address 2', 'mapped field name', 'gravityforms-heidelpay'),
-				'required' => true,
+				'required' => false,
 			),
 			array(
 				'name' => 'city',

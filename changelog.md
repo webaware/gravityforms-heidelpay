@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 1.0.3, soon...
+
+* fixed: Address line 2 should not be marked as mandatory in the field mappings, because it isn't required
+
 ### 1.0.2, 2017-01-01
 
 * fixed: settings and feeds menu items disappear when Members plugin used to set Gravity Forms permissions
