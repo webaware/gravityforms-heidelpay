@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 <?php echo $anchor; ?>
 <div id="gform_confirmation_wrapper_<?php echo esc_attr($form['id']); ?>" class="gform_confirmation_wrapper <?php echo esc_attr($cssClass); ?>">
 	<div id="gform_confirmation_message_<?php echo esc_attr($form['id']); ?>" class="gform_confirmation_message_<?php echo esc_attr($form['id']); ?> gform_confirmation_message">
-	<p><strong><?php _e('heidelpay payment request error', 'gravityforms-heidelpay'); ?></strong></p>
+	<p><strong><?php _e('heidelpay payment request error', 'gf-heidelpay'); ?></strong></p>
 	<?php echo $error_msg; ?>
 	</div>
 </div>

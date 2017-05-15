@@ -195,7 +195,7 @@ class GFHeidelpayResponseCallback extends GFHeidelpayResponse {
 	* @return string
 	*/
 	protected function getMessageInvalid() {
-		return __('Invalid response from heidelpay for Shared Page callback', 'gravityforms-heidelpay');
+		return __('Invalid response from heidelpay for Shared Page callback', 'gf-heidelpay');
 	}
 
 }

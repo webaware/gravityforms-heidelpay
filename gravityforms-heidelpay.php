@@ -6,7 +6,7 @@ Description: Easily create online payment forms with Gravity Forms and heidelpay
 Version: 1.1.0-dev
 Author: WebAware
 Author URI: https://shop.webaware.com.au/
-Text Domain: gravityforms-heidelpay
+Text Domain: gf-heidelpay
 Domain Path: /languages/
 */
 

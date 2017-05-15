@@ -61,18 +61,14 @@ class GFHeidelpayPlugin {
 
 			require GFHEIDELPAY_PLUGIN_ROOT . 'includes/class.GFHeidelpayAddOn.php';
 			GFAddOn::register('GFHeidelpayAddOn');
-
-			// no need to load text domain now, Gravity Forms will do it for us
-			remove_action('init', array($this, 'loadTextDomain'));
 		}
 	}
 
 	/**
 	* load text translations
-	* Gravity Forms loads text domain for add-ons, so this won't be called if the add-on was registered
 	*/
 	public function loadTextDomain() {
-		load_plugin_textdomain('gravityforms-heidelpay', false, plugin_basename(dirname(GFHEIDELPAY_PLUGIN_FILE)) . '/languages/');
+		load_plugin_textdomain('gf-heidelpay', false, plugin_basename(dirname(GFHEIDELPAY_PLUGIN_FILE)) . '/languages/');
 	}
 
 	/**

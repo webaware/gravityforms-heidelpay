@@ -42,7 +42,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	public function __construct() {
 		$this->_version						= GFHEIDELPAY_PLUGIN_VERSION;
 		$this->_min_gravityforms_version	= GFHeidelpayPlugin::MIN_VERSION_GF;
-		$this->_slug						= 'gravityforms-heidelpay';
+		$this->_slug						= 'gravityforms-heidelpay';		// preserve old pre-wp.org slug here, for GF data compatibility
 		$this->_path						= GFHEIDELPAY_PLUGIN_NAME;
 		$this->_full_path					= GFHEIDELPAY_PLUGIN_FILE;
 		$this->_title						= 'heidelpay';					// NB: no localisation yet
@@ -79,8 +79,8 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	* late localisation of strings, after load_plugin_textdomain() has been called
 	*/
 	public function lateLocalise() {
-		$this->_title			= esc_html_x('heidelpay', 'add-on full title', 'gravityforms-heidelpay');
-		$this->_short_title		= esc_html_x('heidelpay', 'add-on short title', 'gravityforms-heidelpay');
+		$this->_title			= esc_html_x('heidelpay', 'add-on full title', 'gf-heidelpay');
+		$this->_short_title		= esc_html_x('heidelpay', 'add-on short title', 'gf-heidelpay');
 	}
 
 	/**
@@ -89,20 +89,15 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	public function init_admin() {
 		parent::init_admin();
 
-		//~ $this->loadEddUpdater();
-
 		add_action('gform_payment_status', array($this, 'gformPaymentStatus' ), 10, 3);
 		add_action('gform_after_update_entry', array($this, 'gformAfterUpdateEntry' ), 10, 2);
 	}
 
 	/**
-	* add our AJAX handling
+	* null the add-on framework load of text domain, because we already did it, thanks.
 	*/
-	//~ public function init_ajax() {
-		//~ parent::init_ajax();
-
-		//~ $this->loadEddUpdater();
-	//~ }
+	public function load_text_domain() {
+	}
 
 	/**
 	* enqueue required styles
@@ -160,7 +155,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	* @return string
 	*/
 	public function plugin_settings_title() {
-		return esc_html__('heidelpay settings', 'gravityforms-heidelpay');
+		return esc_html__('heidelpay settings', 'gf-heidelpay');
 	}
 
 	/**
@@ -178,46 +173,46 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	public function plugin_settings_fields() {
 		$settings = array (
 			array (
-				'title'					=> esc_html__('Live settings', 'gravityforms-heidelpay'),
-				'description'			=> esc_html__('These are default settings. Feeds can specify different settings to override these settings.', 'gravityforms-heidelpay'),
+				'title'					=> esc_html__('Live settings', 'gf-heidelpay'),
+				'description'			=> esc_html__('These are default settings. Feeds can specify different settings to override these settings.', 'gf-heidelpay'),
 				'fields'				=> array (
 
 					array (
 						'name'			=> 'sender',
-						'label'			=> esc_html_x('Sender ID', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('Sender ID', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'text',
 						'class'			=> 'large',
-						'tooltip'		=> esc_html__('Contact heidelpay customer support to get your sender ID.', 'gravityforms-heidelpay'),
+						'tooltip'		=> esc_html__('Contact heidelpay customer support to get your sender ID.', 'gf-heidelpay'),
 					),
 
 					array (
 						'name'			=> 'login',
-						'label'			=> esc_html_x('User Login', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('User Login', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'text',
 						'class'			=> 'large',
-						'tooltip'		=> esc_html__('Contact heidelpay customer support to get your user login.', 'gravityforms-heidelpay'),
+						'tooltip'		=> esc_html__('Contact heidelpay customer support to get your user login.', 'gf-heidelpay'),
 					),
 
 					array (
 						'name'			=> 'password',
-						'label'			=> esc_html_x('User Password', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('User Password', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'text',
 						'class'			=> 'large',
-						'tooltip'		=> esc_html__('Contact heidelpay customer support to get your user password.', 'gravityforms-heidelpay'),
+						'tooltip'		=> esc_html__('Contact heidelpay customer support to get your user password.', 'gf-heidelpay'),
 					),
 
 					array (
 						'name'			=> 'channel_OT',
 										// translators: field name for CHANNEL OT channel ID
-						'label'			=> esc_html_x('Channel OT', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('Channel OT', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'text',
 						'class'			=> 'large',
-						'tooltip'		=> esc_html__('Contact heidelpay customer support to get your channel ID for CHANNEL OT.', 'gravityforms-heidelpay'),
+						'tooltip'		=> esc_html__('Contact heidelpay customer support to get your channel ID for CHANNEL OT.', 'gf-heidelpay'),
 					),
 
 					array(
 						'type'			=> 'save',
-						'messages'		=> array('success' => esc_html__('Settings updated', 'gravityforms-heidelpay')),
+						'messages'		=> array('success' => esc_html__('Settings updated', 'gf-heidelpay')),
 					)
 
 				),
@@ -232,7 +227,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	* @return string
 	*/
 	public function feed_settings_title() {
-		return esc_html__('heidelpay transaction settings', 'gravityforms-heidelpay');
+		return esc_html__('heidelpay transaction settings', 'gf-heidelpay');
 	}
 
 	/**
@@ -241,8 +236,8 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	*/
 	public function feed_list_columns() {
 		$columns = array(
-			'feedName'				=> esc_html_x('Feed name', 'feed field name', 'gravityforms-heidelpay'),
-			'feedItem_useTest'		=> esc_html_x('Mode', 'payment transaction mode', 'gravityforms-heidelpay'),
+			'feedName'				=> esc_html_x('Feed name', 'feed field name', 'gf-heidelpay'),
+			'feedItem_useTest'		=> esc_html_x('Mode', 'payment transaction mode', 'gf-heidelpay'),
 		);
 
 		return $columns;
@@ -257,11 +252,11 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		switch (rgars($item, 'meta/useTest')) {
 
 			case '0':
-				$value = esc_html_x('Live', 'payment transaction mode', 'gravityforms-heidelpay');
+				$value = esc_html_x('Live', 'payment transaction mode', 'gf-heidelpay');
 				break;
 
 			case '1':
-				$value = esc_html_x('Test', 'payment transaction mode', 'gravityforms-heidelpay');
+				$value = esc_html_x('Test', 'payment transaction mode', 'gf-heidelpay');
 				break;
 
 			default:
@@ -289,21 +284,21 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 
 					array(
 						'name'   		=> 'feedName',
-						'label'  		=> esc_html_x('Feed name', 'feed field name', 'gravityforms-heidelpay'),
+						'label'  		=> esc_html_x('Feed name', 'feed field name', 'gf-heidelpay'),
 						'type'   		=> 'text',
 						'class'			=> 'medium',
-						'tooltip'		=> esc_html__('Give this feed a name, to differentiate it from other feeds.', 'gravityforms-heidelpay'),
+						'tooltip'		=> esc_html__('Give this feed a name, to differentiate it from other feeds.', 'gf-heidelpay'),
 						'required'		=> '1',
 					),
 
 					array(
 						'name'   		=> 'useTest',
-						'label'  		=> esc_html_x('Mode', 'payment transaction mode', 'gravityforms-heidelpay'),
+						'label'  		=> esc_html_x('Mode', 'payment transaction mode', 'gf-heidelpay'),
 						'type'   		=> 'radio',
-						'tooltip'		=> esc_html__('Credit cards will not be processed in Test mode. Special card numbers must be used.', 'gravityforms-heidelpay'),
+						'tooltip'		=> esc_html__('Credit cards will not be processed in Test mode. Special card numbers must be used.', 'gf-heidelpay'),
 						'choices'		=> array(
-							array('value' => '0', 'label' => esc_html_x('Live', 'payment transaction mode', 'gravityforms-heidelpay')),
-							array('value' => '1', 'label' => esc_html_x('Test', 'payment transaction mode', 'gravityforms-heidelpay')),
+							array('value' => '0', 'label' => esc_html_x('Live', 'payment transaction mode', 'gf-heidelpay')),
+							array('value' => '1', 'label' => esc_html_x('Test', 'payment transaction mode', 'gf-heidelpay')),
 						),
 						'default_value'	=> '1',
 					),
@@ -316,33 +311,33 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 
 					array(
 						'name'   		=> 'paymentMethod',
-						'label'  		=> esc_html_x('Payment Method', 'feed field name', 'gravityforms-heidelpay'),
+						'label'  		=> esc_html_x('Payment Method', 'feed field name', 'gf-heidelpay'),
 						'type'   		=> 'radio',
-						'tooltip'		=> esc_html__("Debit processes the payment immediately. Authorize reserves the amount on the customer's card or account for processing later.", 'gravityforms-heidelpay'),
+						'tooltip'		=> esc_html__("Debit processes the payment immediately. Authorize reserves the amount on the customer's card or account for processing later.", 'gf-heidelpay'),
 						'choices'		=> array(
-							array('value' => 'debit',		'label' => esc_html_x('Debit', 'payment method', 'gravityforms-heidelpay')),
-							array('value' => 'authorize',	'label' => esc_html_x('Authorize', 'payment method', 'gravityforms-heidelpay')),
+							array('value' => 'debit',		'label' => esc_html_x('Debit', 'payment method', 'gf-heidelpay')),
+							array('value' => 'authorize',	'label' => esc_html_x('Authorize', 'payment method', 'gf-heidelpay')),
 						),
 						'default_value'	=> 'debit',
 					),
 
 					array (
 						'name'			=> 'test_3D_secure',
-						'label'			=> esc_html_x('Test 3D-secure', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('Test 3D-secure', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'checkbox',
 						'choices'		=> array(
-							array('name' => 'test_3D_secure', 'label' => esc_html__('Enable 3D-secure when the feed is set to Test mode', 'gravityforms-heidelpay')),
+							array('name' => 'test_3D_secure', 'label' => esc_html__('Enable 3D-secure when the feed is set to Test mode', 'gf-heidelpay')),
 						),
 						'default_value'	=> 'no',
 					),
 
 					array(
 						'name'			=> 'customConnection',
-						'label'			=> esc_html_x('Customize Connection', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('Customize Connection', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'checkbox',
-						'tooltip'		=> esc_html__('You can use different connection settings and currency for each feed if you need to.', 'gravityforms-heidelpay'),
+						'tooltip'		=> esc_html__('You can use different connection settings and currency for each feed if you need to.', 'gf-heidelpay'),
 						'choices'		=> array(
-							array('value' => '1', 'name' => 'custom_connection', 'label' => esc_html__('Override the default connection settings, just for this feed', 'gravityforms-heidelpay')),
+							array('value' => '1', 'name' => 'custom_connection', 'label' => esc_html__('Override the default connection settings, just for this feed', 'gf-heidelpay')),
 						),
 					),
 
@@ -354,52 +349,52 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 			#region "connection settings"
 
 			array(
-				'title'					=> esc_html__('Connection Settings', 'gravityforms-heidelpay'),
+				'title'					=> esc_html__('Connection Settings', 'gf-heidelpay'),
 				'id'					=> 'heidelpay-settings-connection',
 				'fields' => array(
 
 					array (
 						'name'			=> 'sender',
-						'label'			=> esc_html_x('Sender ID', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('Sender ID', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'text',
 						'class'			=> 'large',
-						'placeholder'	=> esc_html_x('Leave empty to use add-on settings', 'field placeholder', 'gravityforms-heidelpay'),
-						'tooltip'		=> esc_html__('You can use a different sender ID for this feed, or leave it blank to use the add-on settings.', 'gravityforms-heidelpay'),
+						'placeholder'	=> esc_html_x('Leave empty to use add-on settings', 'field placeholder', 'gf-heidelpay'),
+						'tooltip'		=> esc_html__('You can use a different sender ID for this feed, or leave it blank to use the add-on settings.', 'gf-heidelpay'),
 					),
 
 					array (
 						'name'			=> 'login',
-						'label'			=> esc_html_x('User Login', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('User Login', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'text',
 						'class'			=> 'large',
-						'placeholder'	=> esc_html_x('Leave empty to use add-on settings', 'field placeholder', 'gravityforms-heidelpay'),
-						'tooltip'		=> esc_html__('You can use a different login for this feed, or leave it blank to use the add-on settings.', 'gravityforms-heidelpay'),
+						'placeholder'	=> esc_html_x('Leave empty to use add-on settings', 'field placeholder', 'gf-heidelpay'),
+						'tooltip'		=> esc_html__('You can use a different login for this feed, or leave it blank to use the add-on settings.', 'gf-heidelpay'),
 					),
 
 					array (
 						'name'			=> 'password',
-						'label'			=> esc_html_x('User Password', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('User Password', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'text',
 						'class'			=> 'large',
-						'placeholder'	=> esc_html_x('Leave empty to use add-on settings', 'field placeholder', 'gravityforms-heidelpay'),
-						'tooltip'		=> esc_html__('You can use a different password for this feed, or leave it blank to use the add-on settings.', 'gravityforms-heidelpay'),
+						'placeholder'	=> esc_html_x('Leave empty to use add-on settings', 'field placeholder', 'gf-heidelpay'),
+						'tooltip'		=> esc_html__('You can use a different password for this feed, or leave it blank to use the add-on settings.', 'gf-heidelpay'),
 					),
 
 					array (
 						'name'			=> 'channel_id',
-						'label'			=> esc_html_x('Channel ID', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('Channel ID', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'text',
 						'class'			=> 'large',
-						'placeholder'	=> esc_html_x('Leave empty to use add-on settings', 'field placeholder', 'gravityforms-heidelpay'),
-						'tooltip'		=> esc_html__('You can use a different channel ID for this feed, or leave it blank to use the add-on settings.', 'gravityforms-heidelpay'),
+						'placeholder'	=> esc_html_x('Leave empty to use add-on settings', 'field placeholder', 'gf-heidelpay'),
+						'tooltip'		=> esc_html__('You can use a different channel ID for this feed, or leave it blank to use the add-on settings.', 'gf-heidelpay'),
 					),
 
 					array (
 						'name'			=> 'currency',
-						'label'			=> esc_html_x('Currency', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('Currency', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'select',
-						'tooltip'		=> esc_html__('You can use a different currency for this feed, or use the Gravity Forms settings.', 'gravityforms-heidelpay'),
-						'choices'		=> self::getCurrencies(__('Use default currency', 'gravityforms-heidelpay')),
+						'tooltip'		=> esc_html__('You can use a different currency for this feed, or use the Gravity Forms settings.', 'gf-heidelpay'),
+						'choices'		=> self::getCurrencies(__('Use default currency', 'gf-heidelpay')),
 					),
 
 				),
@@ -410,7 +405,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 			#region "mapped fields"
 
 			array(
-				'title'					=> esc_html__('Mapped Field Settings', 'gravityforms-heidelpay'),
+				'title'					=> esc_html__('Mapped Field Settings', 'gf-heidelpay'),
 				'fields'				=> array(
 
 					array(
@@ -427,13 +422,13 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 			#region "hosted page settings"
 
 			array(
-				'title'					=> esc_html__('Hosted Page Settings', 'gravityforms-heidelpay'),
+				'title'					=> esc_html__('Hosted Page Settings', 'gf-heidelpay'),
 				'id'					=> 'heidelpay-settings-shared',
 				'fields'				=> array(
 
 					array(
 						'name'			=> 'enabledMethods',
-						'label'			=> esc_html_x('Enabled Methods', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('Enabled Methods', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'enabled_methods',
 						'class'			=> 'heidelpay-feed-enabled-methods',
 						'default_value'	=> $this->getDefaultEnabledMethods(),
@@ -441,51 +436,51 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 
 					array(
 						'name'			=> 'cancelURL',
-						'label'			=> esc_html_x('Cancel URL', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('Cancel URL', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'text',
 						'class'  		=> 'large',
-						'placeholder'	=> esc_html_x('Leave empty to use default Gravity Forms confirmation handler', 'field placeholder', 'gravityforms-heidelpay'),
-						'tooltip'		=> __('Redirect to this URL if the transaction is canceled.', 'gravityforms-heidelpay')
+						'placeholder'	=> esc_html_x('Leave empty to use default Gravity Forms confirmation handler', 'field placeholder', 'gf-heidelpay'),
+						'tooltip'		=> __('Redirect to this URL if the transaction is canceled.', 'gf-heidelpay')
 										.  '<br/><br/>'
-										.  __('Please note: standard Gravity Forms submission logic applies if the transaction is successful.', 'gravityforms-heidelpay'),
+										.  __('Please note: standard Gravity Forms submission logic applies if the transaction is successful.', 'gf-heidelpay'),
 					),
 
 					array(
 						'name'			=> 'delayPost',
-						'label'			=> esc_html_x('Create Post', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('Create Post', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'checkbox',
 						'choices'		=> array(
-							array('name' => 'delayPost', 'label' => esc_html__('Create post only when transaction completes', 'gravityforms-heidelpay')),
+							array('name' => 'delayPost', 'label' => esc_html__('Create post only when transaction completes', 'gf-heidelpay')),
 						),
 					),
 
 					array(
 						'name'			=> 'delayMailchimp',
-						'label'			=> esc_html_x('MailChimp Subscription', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('MailChimp Subscription', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'checkbox',
 						'choices'		=> array(
-							array('name' => 'delayMailchimp', 'label' => esc_html__('Subscribe user to MailChimp only when transaction completes', 'gravityforms-heidelpay')),
+							array('name' => 'delayMailchimp', 'label' => esc_html__('Subscribe user to MailChimp only when transaction completes', 'gf-heidelpay')),
 						),
 					),
 
 					array(
 						'name'			=> 'delayUserrego',
-						'label'			=> esc_html_x('User Registration', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('User Registration', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'checkbox',
 						'choices'		=> array(
-							array('name' => 'delayUserrego', 'label' => esc_html__('Register user only when transaction completes', 'gravityforms-heidelpay')),
+							array('name' => 'delayUserrego', 'label' => esc_html__('Register user only when transaction completes', 'gf-heidelpay')),
 						),
 					),
 
 					array(
 						'name'			=> 'execDelayedAlways',
-						'label'			=> esc_html_x('Always Execute', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('Always Execute', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'checkbox',
 						'choices'		=> array(
-							array('name' => 'execDelayedAlways', 'label' => esc_html__('Always execute delayed actions, regardless of payment status', 'gravityforms-heidelpay')),
+							array('name' => 'execDelayedAlways', 'label' => esc_html__('Always execute delayed actions, regardless of payment status', 'gf-heidelpay')),
 						),
 						'default_value'	=> '1',
-						'tooltip'		=> __('The delayed actions above will only be processed for successful transactions, unless this option is enabled.', 'gravityforms-heidelpay'),
+						'tooltip'		=> __('The delayed actions above will only be processed for successful transactions, unless this option is enabled.', 'gf-heidelpay'),
 					),
 
 				),
@@ -496,16 +491,16 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 			#region "conditional processing settings"
 
 			array(
-				'title'					=> esc_html__('Feed Conditions', 'gravityforms-heidelpay'),
+				'title'					=> esc_html__('Feed Conditions', 'gf-heidelpay'),
 				'fields'				=> array(
 
 					array(
 						'name'			=> 'condition',
-						'label'			=> esc_html_x('heidelpay condition', 'feed field name', 'gravityforms-heidelpay'),
+						'label'			=> esc_html_x('heidelpay condition', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'feed_condition',
 						'checkbox_label' => 'Enable',
-						'instructions'	=> esc_html_x('Send to heidelpay if', 'feed conditions', 'gravityforms-heidelpay'),
-						'tooltip'		=> esc_html__('When the heidelpay condition is enabled, form submissions will only be sent to heidelpay when the condition is met. When disabled, all form submissions will be sent to heidelpay.', 'gravityforms-heidelpay'),
+						'instructions'	=> esc_html_x('Send to heidelpay if', 'feed conditions', 'gf-heidelpay'),
+						'tooltip'		=> esc_html__('When the heidelpay condition is enabled, form submissions will only be sent to heidelpay when the condition is met. When disabled, all form submissions will be sent to heidelpay.', 'gf-heidelpay'),
 					),
 
 				),
@@ -523,7 +518,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	* @return string
 	*/
 	public function field_map_title() {
-		return esc_html_x('heidelpay field', 'mapped fields title', 'gravityforms-heidelpay');
+		return esc_html_x('heidelpay field', 'mapped fields title', 'gf-heidelpay');
 	}
 
 	/**
@@ -595,77 +590,77 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		$fields = array(
 			array(
 				'name' => 'description',
-				'label' => esc_html_x('Invoice Description', 'mapped field name', 'gravityforms-heidelpay'),
+				'label' => esc_html_x('Invoice Description', 'mapped field name', 'gf-heidelpay'),
 				'required' => false,
 			),
 			array(
 				'name' => 'title',
-				'label' => esc_html_x('Customer Title', 'mapped field name', 'gravityforms-heidelpay'),
+				'label' => esc_html_x('Customer Title', 'mapped field name', 'gf-heidelpay'),
 				'required' => false,
 			),
 			array(
 				'name' => 'firstName',
-				'label' => esc_html_x('Customer First Name', 'mapped field name', 'gravityforms-heidelpay'),
+				'label' => esc_html_x('Customer First Name', 'mapped field name', 'gf-heidelpay'),
 				'required' => true,
 			),
 			array(
 				'name' => 'lastName',
-				'label' => esc_html_x('Customer Last Name', 'mapped field name', 'gravityforms-heidelpay'),
+				'label' => esc_html_x('Customer Last Name', 'mapped field name', 'gf-heidelpay'),
 				'required' => true,
 			),
 			array(
 				'name' => 'birthDate',
-				'label' => esc_html_x('Birth Date', 'mapped field name', 'gravityforms-heidelpay'),
+				'label' => esc_html_x('Birth Date', 'mapped field name', 'gf-heidelpay'),
 				'required' => false,
 			),
 			array(
 				'name' => 'companyName',
-				'label' => esc_html_x('Company Name', 'mapped field name', 'gravityforms-heidelpay'),
+				'label' => esc_html_x('Company Name', 'mapped field name', 'gf-heidelpay'),
 				'required' => false,
 			),
 			array(
 				'name' => 'email',
-				'label' => esc_html_x('Email', 'mapped field name', 'gravityforms-heidelpay'),
+				'label' => esc_html_x('Email', 'mapped field name', 'gf-heidelpay'),
 				'required' => false,
 			),
 			array(
 				'name' => 'address',
-				'label' => esc_html_x('Address', 'mapped field name', 'gravityforms-heidelpay'),
+				'label' => esc_html_x('Address', 'mapped field name', 'gf-heidelpay'),
 				'required' => true,
 			),
 			array(
 				'name' => 'address2',
-				'label' => esc_html_x('Address 2', 'mapped field name', 'gravityforms-heidelpay'),
+				'label' => esc_html_x('Address 2', 'mapped field name', 'gf-heidelpay'),
 				'required' => false,
 			),
 			array(
 				'name' => 'city',
-				'label' => esc_html_x('City', 'mapped field name', 'gravityforms-heidelpay'),
+				'label' => esc_html_x('City', 'mapped field name', 'gf-heidelpay'),
 				'required' => true,
 			),
 			array(
 				'name' => 'state',
-				'label' => esc_html_x('State', 'mapped field name', 'gravityforms-heidelpay'),
+				'label' => esc_html_x('State', 'mapped field name', 'gf-heidelpay'),
 				'required' => false,
 			),
 			array(
 				'name' => 'zip',
-				'label' => esc_html_x('Postcode', 'mapped field name', 'gravityforms-heidelpay'),
+				'label' => esc_html_x('Postcode', 'mapped field name', 'gf-heidelpay'),
 				'required' => true,
 			),
 			array(
 				'name' => 'country',
-				'label' => esc_html_x('Country', 'mapped field name', 'gravityforms-heidelpay'),
+				'label' => esc_html_x('Country', 'mapped field name', 'gf-heidelpay'),
 				'required' => true,
 			),
 			array(
 				'name' => 'phone',
-				'label' => esc_html_x('Phone', 'mapped field name', 'gravityforms-heidelpay'),
+				'label' => esc_html_x('Phone', 'mapped field name', 'gf-heidelpay'),
 				'required' => false,
 			),
 			array(
 				'name' => 'mobile',
-				'label' => esc_html_x('Mobile', 'mapped field name', 'gravityforms-heidelpay'),
+				'label' => esc_html_x('Mobile', 'mapped field name', 'gf-heidelpay'),
 				'required' => false,
 			),
 		);
@@ -719,23 +714,23 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	*/
 	public function settings_enabled_methods($field, $echo = true) {
 		$methods = array(
-			'CC'		=> _x('Credit Card',		'payment method', 'gravityforms-heidelpay'),
-			'DC'		=> _x('Debit Card',			'payment method', 'gravityforms-heidelpay'),
-			'DD'		=> _x('Direct Debit',		'payment method', 'gravityforms-heidelpay'),
-			'OT'		=> _x('Online Transfer',	'payment method', 'gravityforms-heidelpay'),
-			'VA'		=> _x('PayPal',				'payment method', 'gravityforms-heidelpay'),
-			'PC'		=> _x('Payment Card',		'payment method', 'gravityforms-heidelpay'),
-			'IV'		=> _x('Invoice',			'payment method', 'gravityforms-heidelpay'),
-			'PP'		=> _x('Prepayment',			'payment method', 'gravityforms-heidelpay'),
+			'CC'		=> _x('Credit Card',		'payment method', 'gf-heidelpay'),
+			'DC'		=> _x('Debit Card',			'payment method', 'gf-heidelpay'),
+			'DD'		=> _x('Direct Debit',		'payment method', 'gf-heidelpay'),
+			'OT'		=> _x('Online Transfer',	'payment method', 'gf-heidelpay'),
+			'VA'		=> _x('PayPal',				'payment method', 'gf-heidelpay'),
+			'PC'		=> _x('Payment Card',		'payment method', 'gf-heidelpay'),
+			'IV'		=> _x('Invoice',			'payment method', 'gf-heidelpay'),
+			'PP'		=> _x('Prepayment',			'payment method', 'gf-heidelpay'),
 		);
 
 		$creditcards = array(
-        	'VISA'		=> _x('Visa',						'credit cards', 'gravityforms-heidelpay'),
-        	'MASTER'	=> _x('Mastercard',					'credit cards', 'gravityforms-heidelpay'),
-        	'AMEX'		=> _x('American Express',			'credit cards', 'gravityforms-heidelpay'),
-        	'JCB'		=> _x('Japan Credit Bureau (JCB)',	'credit cards', 'gravityforms-heidelpay'),
-        	'DINERS'	=> _x('Diners Club',				'credit cards', 'gravityforms-heidelpay'),
-        	'DISCOVER'	=> _x('Discover',					'credit cards', 'gravityforms-heidelpay'),
+        	'VISA'		=> _x('Visa',						'credit cards', 'gf-heidelpay'),
+        	'MASTER'	=> _x('Mastercard',					'credit cards', 'gf-heidelpay'),
+        	'AMEX'		=> _x('American Express',			'credit cards', 'gf-heidelpay'),
+        	'JCB'		=> _x('Japan Credit Bureau (JCB)',	'credit cards', 'gf-heidelpay'),
+        	'DINERS'	=> _x('Diners Club',				'credit cards', 'gf-heidelpay'),
+        	'DISCOVER'	=> _x('Discover',					'credit cards', 'gf-heidelpay'),
 		);
 
 		$selections = $this->get_setting($field['name'], rgar($field, 'default_value'));
@@ -776,7 +771,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		}
 
 		// translators: 1: currency code; 2: currency name
-		$optionFormat = __('%1$s &mdash; %2$s', 'currency list', 'gravityforms-heidelpay');
+		$optionFormat = __('%1$s &mdash; %2$s', 'currency list', 'gf-heidelpay');
 
 		foreach ($currencies as $ccode => $currency) {
 			$options[] = array('value' => $ccode, 'label' => sprintf($optionFormat, esc_html($ccode), $currency['name']));
@@ -855,7 +850,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 
 				// make sure form hasn't already been submitted / processed
 				if ($this->hasFormBeenProcessed($form)) {
-					throw new GFHeidelpayException(__('Payment already submitted and processed - please close your browser window.', 'gravityforms-heidelpay'));
+					throw new GFHeidelpayException(__('Payment already submitted and processed - please close your browser window.', 'gf-heidelpay'));
 				}
 
 				// set hook to request redirect URL
@@ -890,7 +885,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 			// make sure that gateway credentials have been set for feed, or globally
 			$creds = new GFHeidelpayCredentials($this, $feed);
 			if ($creds->isIncomplete()) {
-				throw new GFHeidelpayException(__('Incomplete credentials for heidelpay payment; please tell the web master.', 'gravityforms-heidelpay'));
+				throw new GFHeidelpayException(__('Incomplete credentials for heidelpay payment; please tell the web master.', 'gf-heidelpay'));
 			}
 
 			// pick up the currency of this feed, if different to global setting and not already defined by a feed
@@ -954,7 +949,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 
 				$this->log_debug(sprintf('%s: failed', __FUNCTION__));
 
-				$error_msg = esc_html__('Transaction request failed', 'gravityforms-heidelpay');
+				$error_msg = esc_html__('Transaction request failed', 'gf-heidelpay');
 
 				$note = $this->getFailureNote($paymentMethod, array($error_msg));
 				$this->add_note($entry['id'], $note, 'error');
@@ -1190,7 +1185,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 
 			// must have a lead ID, or nothing to do
 			if (empty($lead_id)) {
-				throw new GFHeidelpayException(sprintf(__('Invalid entry ID: %s', 'gravityforms-heidelpay'), $lead_id));
+				throw new GFHeidelpayException(sprintf(__('Invalid entry ID: %s', 'gf-heidelpay'), $lead_id));
 			}
 
 			$response = new GFHeidelpayResponseCallback();
@@ -1237,7 +1232,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 					GFAPI::update_entry($entry);
 
 					if ($response->FRONTEND_REQUEST_CANCELLED) {
-						$note = esc_html('Transaction canceled by customer', 'gravityforms-heidelpay');
+						$note = esc_html('Transaction canceled by customer', 'gf-heidelpay');
 					}
 					else {
 						$note = $this->getFailureNote($capture, $response->getProcessingMessages());
@@ -1413,11 +1408,11 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 			return;
 		}
 
-		$note = __('Payment information was manually updated.', 'gravityforms-heidelpay');
+		$note = __('Payment information was manually updated.', 'gf-heidelpay');
 
 		if ($entry['payment_status'] !== $payment_status) {
 			// translators: 1: old payment status; 2: new payment status
-			$note .= "\n" . sprintf(__('Payment status changed from %1$s to %2$s.', 'gravityforms-heidelpay'), $entry['payment_status'], $payment_status);
+			$note .= "\n" . sprintf(__('Payment status changed from %1$s to %2$s.', 'gf-heidelpay'), $entry['payment_status'], $payment_status);
 			$entry['payment_status'] = $payment_status;
 		}
 
@@ -1492,8 +1487,8 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		}
 
 		return array(
-			'complete_payment'		=> esc_html_x('Payment Completed', 'notification event', 'gravityforms-heidelpay'),
-			'fail_payment'			=> esc_html_x('Payment Failed', 'notification event', 'gravityforms-heidelpay'),
+			'complete_payment'		=> esc_html_x('Payment Completed', 'notification event', 'gf-heidelpay'),
+			'fail_payment'			=> esc_html_x('Payment Failed', 'notification event', 'gf-heidelpay'),
 		);
 	}
 
@@ -1515,7 +1510,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		}
 
 		$entry_meta[self::META_SHORT_ID] = array(
-			'label'					=> esc_html_x('heidelpay short ID', 'entry meta label', 'gravityforms-heidelpay'),
+			'label'					=> esc_html_x('heidelpay short ID', 'entry meta label', 'gf-heidelpay'),
 			'is_numeric'			=> false,
 			'is_default_column'		=> false,
 			'filter'				=> array(
@@ -1524,7 +1519,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		);
 
 		$entry_meta[self::META_RETURN_CODE] = array(
-			'label'					=> esc_html_x('heidelpay return code', 'entry meta label', 'gravityforms-heidelpay'),
+			'label'					=> esc_html_x('heidelpay return code', 'entry meta label', 'gf-heidelpay'),
 			'is_numeric'			=> false,
 			'is_default_column'		=> false,
 			'filter'				=> array(
@@ -1548,11 +1543,11 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 			$feeds = $this->get_feeds($form_id);
 			if (!empty($feeds)) {
 				// at least one feed for this add-on, so add our merge tags
-				$merge_tags[] = array('label' => esc_html_x('Transaction ID', 'merge tag label', 'gravityforms-heidelpay'), 'tag' => '{transaction_id}');
-				$merge_tags[] = array('label' => esc_html_x('Short ID',       'merge tag label', 'gravityforms-heidelpay'), 'tag' => '{heidelpay_short_id}');
-				$merge_tags[] = array('label' => esc_html_x('Return Code',    'merge tag label', 'gravityforms-heidelpay'), 'tag' => '{heidelpay_return_code}');
-				$merge_tags[] = array('label' => esc_html_x('Payment Amount', 'merge tag label', 'gravityforms-heidelpay'), 'tag' => '{payment_amount}');
-				$merge_tags[] = array('label' => esc_html_x('Payment Status', 'merge tag label', 'gravityforms-heidelpay'), 'tag' => '{payment_status}');
+				$merge_tags[] = array('label' => esc_html_x('Transaction ID', 'merge tag label', 'gf-heidelpay'), 'tag' => '{transaction_id}');
+				$merge_tags[] = array('label' => esc_html_x('Short ID',       'merge tag label', 'gf-heidelpay'), 'tag' => '{heidelpay_short_id}');
+				$merge_tags[] = array('label' => esc_html_x('Return Code',    'merge tag label', 'gf-heidelpay'), 'tag' => '{heidelpay_return_code}');
+				$merge_tags[] = array('label' => esc_html_x('Payment Amount', 'merge tag label', 'gf-heidelpay'), 'tag' => '{payment_amount}');
+				$merge_tags[] = array('label' => esc_html_x('Payment Status', 'merge tag label', 'gf-heidelpay'), 'tag' => '{payment_status}');
 			}
 		}
 
@@ -1694,10 +1689,10 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	*/
 	protected function getPaymentNote($capture, $results, $messages) {
 		if ($capture) {
-			$message = esc_html__('Payment has been captured successfully. Amount: %1$s. Transaction ID: %2$s.', 'gravityforms-heidelpay');
+			$message = esc_html__('Payment has been captured successfully. Amount: %1$s. Transaction ID: %2$s.', 'gf-heidelpay');
 		}
 		else {
-			$message = esc_html__('Payment has been authorized successfully. Amount: %1$s. Transaction ID: %2$s.', 'gravityforms-heidelpay');
+			$message = esc_html__('Payment has been authorized successfully. Amount: %1$s. Transaction ID: %2$s.', 'gf-heidelpay');
 		}
 
 		$amount = GFCommon::to_money($results['amount'], $results['currency']);
@@ -1720,11 +1715,11 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		switch ($paymentMethod) {
 
 			case 'authorize':
-				$note = esc_html__('Payment authorization failed.', 'gravityforms-heidelpay');
+				$note = esc_html__('Payment authorization failed.', 'gf-heidelpay');
 				break;
 
 			default:
-				$note = esc_html__('Failed to capture payment.', 'gravityforms-heidelpay');
+				$note = esc_html__('Failed to capture payment.', 'gf-heidelpay');
 				break;
 
 		}

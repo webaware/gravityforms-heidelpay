@@ -34,7 +34,7 @@ Thanks for sponsoring new features on Gravity Forms heidelpay!
 
 = Translations =
 
-If you'd like to help out by translating this plugin, please [sign up for an account and dig in](https://translate.wordpress.org/projects/wp-plugins/gravityforms-heidelpay).
+If you'd like to help out by translating this plugin, please [sign up for an account and dig in](https://translate.wordpress.org/projects/wp-plugins/gf-heidelpay).
 
 = Requirements =
 

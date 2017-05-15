@@ -5,6 +5,6 @@ if (!defined('ABSPATH')) {
 ?>
 
 <div class="error">
-	<p><?php printf(__('Gravity Forms heidelpay requires <a target="_blank" href="%s">Gravity Forms</a> to be installed and activated.', 'gravityforms-heidelpay'),
+	<p><?php printf(__('Gravity Forms heidelpay requires <a target="_blank" href="%s">Gravity Forms</a> to be installed and activated.', 'gf-heidelpay'),
 		'https://webaware.com.au/get-gravity-forms'); ?></p>
 </div>
