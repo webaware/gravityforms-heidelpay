@@ -1,26 +1,20 @@
 {
   "name": "gravityforms-heidelpay",
   "version": "1.0.3",
-  "description": "Easily create online payment forms with Gravity Forms and heidelpay.",
+  "description": "Gravity Forms heidelpay",
   "main": "Gruntfile.js",
   "devDependencies": {
     "grunt": "^1.0.1",
-    "grunt-contrib-clean": "^1.0.0",
-    "grunt-contrib-compress": "^1.3.0",
+    "grunt-contrib-clean": "^1.1.0",
+    "grunt-contrib-compress": "^1.4.1",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "^0.11.3",
-    "grunt-contrib-uglify": "^0.8.1",
-    "grunt-wp-i18n": "^0.5.4"
+    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-uglify": "^3.0.0"
   },
   "author": {
     "name": "WebAware",
     "email": "support@webaware.com.au",
     "url": "https://shop.webaware.com.au/"
-  },
-  "translator": {
-    "name": "WebAware",
-    "email": "translate@webaware.com.au",
-    "url": "https://translate.webaware.com.au/projects/gravityforms-heidelpay"
   },
   "license": "GPL-2.0",
   "private": true,
