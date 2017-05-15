@@ -15,8 +15,6 @@ class GFHeidelpayCurlException extends Exception {}
 */
 class GFHeidelpayPlugin {
 
-	public $options;									// array of plugin options
-
 	// minimum versions required
 	const MIN_VERSION_GF		= '2.0';
 
