@@ -2,7 +2,7 @@
 
 ## Changelog
 
-### 1.1.0, soon...
+### 1.1.0, 2017-05-16
 
 * released as a free plugin on wordpress.org
 

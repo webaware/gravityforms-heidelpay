@@ -1,6 +1,6 @@
 === Gravity Forms heidelpay ===
 Contributors: webaware
-Plugin Name: GravityForms heidelpay
+Plugin Name: Gravity Forms heidelpay
 Plugin URI: https://shop.webaware.com.au/downloads/gravity-forms-heidelpay/
 Author: WebAware
 Author URI: https://shop.webaware.com.au/
@@ -121,6 +121,6 @@ This is a common problem in local testing environments. Please [read this post](
 
 == Changelog ==
 
-### 1.1.0, soon...
+### 1.1.0, 2017-05-16
 
 * released as a free plugin on wordpress.org
