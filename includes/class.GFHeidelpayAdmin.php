@@ -56,7 +56,10 @@ class GFHeidelpayAdmin {
 	*/
 	public function pluginDetailsLinks($links, $file) {
 		if ($file === GFHEIDELPAY_PLUGIN_NAME) {
-			$links[] = sprintf('<a href="https://translate.webaware.com.au/projects/gravityforms-heidelpay" target="_blank">%s</a>', esc_html_x('Translate', 'plugin details links', 'gravityforms-heidelpay'));
+			$links[] = sprintf('<a href="https://wordpress.org/support/plugin/gravityforms-heidelpay" target="_blank">%s</a>', _x('Get help', 'plugin details links', 'gravityforms-heidelpay'));
+			$links[] = sprintf('<a href="https://wordpress.org/plugins/gravityforms-heidelpay/" target="_blank">%s</a>', _x('Rating', 'plugin details links', 'gravityforms-heidelpay'));
+			$links[] = sprintf('<a href="https://translate.wordpress.org/projects/wp-plugins/gravityforms-heidelpay" target="_blank">%s</a>', _x('Translate', 'plugin details links', 'gravityforms-heidelpay'));
+			$links[] = sprintf('<a href="https://shop.webaware.com.au/donations/?donation_for=Gravity+Forms+heidelpay" target="_blank">%s</a>', _x('Donate', 'plugin details links', 'gravityforms-heidelpay'));
 		}
 
 		return $links;

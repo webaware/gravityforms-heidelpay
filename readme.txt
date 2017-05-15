@@ -18,7 +18,7 @@ Easily create online payment forms with Gravity Forms and heidelpay.
 
 Easily create online payment forms with Gravity Forms and heidelpay.
 
-Gravity Forms heidelpay integrates the [heidelpay credit card payment gateway](http://www.heidelpay.com/payment/) with [Gravity Forms](https://webaware.com.au/get-gravity-forms) advanced form builder, using eWAY's [Rapid API Direct Payments](https://eway.io/features/api-rapid-api) and [Recurring Payments XML API](https://www.eway.com.au/features/payments-recurring-payments).
+Gravity Forms heidelpay integrates the [heidelpay credit card payment gateway](http://www.heidelpay.com/payment/) with [Gravity Forms](https://webaware.com.au/get-gravity-forms) advanced form builder.
 
 * build online donation forms
 * build online booking forms
@@ -106,7 +106,7 @@ Authorize checks to see that the transaction would be approved, but does not pro
 
 Not yet.
 
-= I get an SSL error when my form attempts to connect with DPS =
+= I get an SSL error when my form attempts to connect with heidelpay =
 
 This is a common problem in local testing environments. Please [read this post](https://snippets.webaware.com.au/howto/stop-turning-off-curlopt_ssl_verifypeer-and-fix-your-php-config/) for more information.
 
