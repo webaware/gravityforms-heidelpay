@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 1.1.0, soon...
+
+* released as a free plugin on wordpress.org
+
 ### 1.0.3, 2017-01-09
 
 * fixed: Address line 2 should not be marked as mandatory in the field mappings, because it isn't required
@@ -16,4 +20,4 @@
 
 ### 1.0.0, 2016-11-09
 
-* initial public release
+* initial stable release

@@ -1,9 +1,9 @@
 <?php
 /*
-Plugin Name: Gravity Forms heidelpay
-Plugin URI: https://www.sri-lanka-visa.org/
+Plugin Name: GravityForms heidelpay
+Plugin URI: https://shop.webaware.com.au/downloads/gravity-forms-heidelpay/
 Description: Easily create online payment forms with Gravity Forms and heidelpay.
-Version: 1.0.3
+Version: 1.1.0-dev
 Author: WebAware
 Author URI: https://shop.webaware.com.au/
 Text Domain: gravityforms-heidelpay
@@ -35,7 +35,7 @@ if (!defined('ABSPATH')) {
 define('GFHEIDELPAY_PLUGIN_FILE', __FILE__);
 define('GFHEIDELPAY_PLUGIN_ROOT', dirname(__FILE__) . '/');
 define('GFHEIDELPAY_PLUGIN_NAME', basename(dirname(__FILE__)) . '/' . basename(__FILE__));
-define('GFHEIDELPAY_PLUGIN_VERSION', '1.0.3');
+define('GFHEIDELPAY_PLUGIN_VERSION', '1.1.0-dev');
 
 // instantiate the plug-in
 require GFHEIDELPAY_PLUGIN_ROOT . 'includes/class.GFHeidelpayPlugin.php';
