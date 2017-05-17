@@ -876,23 +876,25 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	public function pre_process_feeds($feeds, $entry, $form) {
 		$this->currency = null;
 
-		foreach ($feeds as $feed) {
-			// feed must be active and meet feed conditions, if any
-			if (!$feed['is_active'] || !$this->is_feed_condition_met($feed, $form, array())) {
-				continue;
-			}
+		if (is_array($feeds)) {
+			foreach ($feeds as $feed) {
+				// feed must be active and meet feed conditions, if any
+				if (!$feed['is_active'] || !$this->is_feed_condition_met($feed, $form, array())) {
+					continue;
+				}
 
-			// make sure that gateway credentials have been set for feed, or globally
-			$creds = new GFHeidelpayCredentials($this, $feed);
-			if ($creds->isIncomplete()) {
-				throw new GFHeidelpayException(__('Incomplete credentials for heidelpay payment; please tell the web master.', 'gf-heidelpay'));
-			}
+				// make sure that gateway credentials have been set for feed, or globally
+				$creds = new GFHeidelpayCredentials($this, $feed);
+				if ($creds->isIncomplete()) {
+					throw new GFHeidelpayException(__('Incomplete credentials for heidelpay payment; please tell the web master.', 'gf-heidelpay'));
+				}
 
-			// pick up the currency of this feed, if different to global setting and not already defined by a feed
-			$feedCurrency = $this->getActiveCurrency($feed);
-			if (is_null($this->currency) && $this->defaultCurrency !== $feedCurrency) {
-				$this->currency = $feedCurrency;
-				add_filter('gform_currency', array($this, 'gformCurrency'));
+				// pick up the currency of this feed, if different to global setting and not already defined by a feed
+				$feedCurrency = $this->getActiveCurrency($feed);
+				if (is_null($this->currency) && $this->defaultCurrency !== $feedCurrency) {
+					$this->currency = $feedCurrency;
+					add_filter('gform_currency', array($this, 'gformCurrency'));
+				}
 			}
 		}
 

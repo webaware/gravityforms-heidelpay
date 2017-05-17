@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 1.1.1, soon...
+
+* fixed: invalid argument warning in `pre_process_feeds()` when form has no feeds
+
 ### 1.1.0, 2017-05-16
 
 * released as a free plugin on wordpress.org
