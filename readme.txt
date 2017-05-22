@@ -68,7 +68,7 @@ Any Gravity Forms license will do. You can use this plugin with the Personal, Bu
 
 = What is the difference between Live and Test mode? =
 
-Test mode enables you to run transactions on the heidelpay test environment. It allows you to run tests without using real credit cards or bank accounts. You must use special test credit card details with using the test environment.
+Test mode enables you to run transactions on the heidelpay test environment. It allows you to run tests without using real credit cards or bank accounts. You must use special test credit card details when using the test environment.
 
 NB: the test environment is visible to anyone who wants to log in and perform testing. Never use real personal details or credit card details in the test environment, because they will be seen by other testers!
 
