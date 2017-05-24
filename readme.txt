@@ -26,12 +26,6 @@ Gravity Forms heidelpay integrates the [heidelpay credit card payment gateway](h
 
 > NB: this plugin extends Gravity Forms; you still need to install and activate [Gravity Forms](https://webaware.com.au/get-gravity-forms)!
 
-= Sponsorships =
-
-* creation of this plugin was generously sponsored by Tom Gysel.
-
-Thanks for sponsoring new features on Gravity Forms heidelpay!
-
 = Translations =
 
 If you'd like to help out by translating this plugin, please [sign up for an account and dig in](https://translate.wordpress.org/projects/wp-plugins/gf-heidelpay).
