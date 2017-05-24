@@ -8,7 +8,7 @@ Donate link: https://shop.webaware.com.au/donations/?donation_for=Gravity+Forms+
 Tags: gravityforms, gravity forms, heidelpay, credit cards, donation, donations, payment
 Requires at least: 4.2
 Tested up to: 4.7
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,8 +113,16 @@ This is a common problem in local testing environments. Please [read this post](
 5. The sample donation form as it appears on a page
 6. A successful entry in Gravity Forms admin
 
+== Upgrade Notice ==
+
+= 1.1.1 =
+
+fixed invalid argument warning on forms with no heidelpay feeds
+
 == Changelog ==
 
-### 1.1.0, 2017-05-16
+The full changelog can be found [on GitHub](https://github.com/webaware/gravityforms-heidelpay/blob/master/changelog.md). Recent entries:
 
-* released as a free plugin on wordpress.org
+### 1.1.1, 2017-05-24
+
+* fixed: invalid argument warning in `pre_process_feeds()` when form has no feeds

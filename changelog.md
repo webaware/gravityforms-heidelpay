@@ -2,7 +2,7 @@
 
 ## Changelog
 
-### 1.1.1, soon...
+### 1.1.1, 2017-05-24
 
 * fixed: invalid argument warning in `pre_process_feeds()` when form has no feeds
 
