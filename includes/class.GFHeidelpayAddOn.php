@@ -1005,14 +1005,20 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	* @return boolean
 	*/
 	protected function hasFormBeenProcessed($form) {
-		global $wpdb;
+		$unique_id = RGFormsModel::get_form_unique_id($form['id']);
 
-		$unique_id = GFFormsModel::get_form_unique_id($form['id']);
+		$search = array(
+			'field_filters' => array(
+									array(
+										'key'		=> 'heidelpay_unique_id',
+										'value'		=> $unique_id,
+									),
+								),
+		);
 
-		$sql = "select lead_id from {$wpdb->prefix}rg_lead_meta where meta_key='heidelpay_unique_id' and meta_value = %s";
-		$lead_id = $wpdb->get_var($wpdb->prepare($sql, $unique_id));
+		$entries = GFAPI::get_entries($form['id'], $search);
 
-		return !empty($lead_id);
+		return !empty($entries);
 	}
 
 	/**
@@ -1181,19 +1187,26 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		$transactionNumber = rgget('txid');
 
 		try {
-			global $wpdb;
-			$sql = "select lead_id from {$wpdb->prefix}rg_lead_meta where meta_key=%s and meta_value = %s";
-			$lead_id = $wpdb->get_var($wpdb->prepare($sql, self::META_TRANSACTION_ID, $transactionNumber));
+			$search = array(
+				'field_filters' => array(
+										array(
+											'key'		=> self::META_TRANSACTION_ID,
+											'value'		=> $transactionNumber,
+										),
+									),
+			);
+			$entries = GFAPI::get_entries(0, $search);
 
-			// must have a lead ID, or nothing to do
-			if (empty($lead_id)) {
-				throw new GFHeidelpayException(sprintf(__('Invalid entry ID: %s', 'gf-heidelpay'), $lead_id));
+			// must have an entry, or nothing to do
+			if (empty($entries)) {
+				throw new GFDpsPxPayException(sprintf(__('Invalid transaction number: %s', 'gravity-forms-dps-pxpay'), $transactionNumber));
 			}
+			$entry = $entries[0];
+			$lead_id = rgar($entry, 'id');
 
 			$response = new GFHeidelpayResponseCallback();
 			$response->loadResponse($_POST);
 
-			$entry = GFFormsModel::get_lead($lead_id);
 			$form = GFFormsModel::get_form_meta($entry['form_id']);
 			$feed = $this->getFeed($lead_id);
 

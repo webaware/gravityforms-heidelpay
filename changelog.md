@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 1.1.2, soon...
+
+* fixed: Gravity Forms 2.3 compatibility; don't directly access database tables
+
 ### 1.1.1, 2017-05-24
 
 * fixed: invalid argument warning in `pre_process_feeds()` when form has no feeds
