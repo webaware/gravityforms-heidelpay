@@ -340,7 +340,6 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 						'choices'		=> array(
 							array('name' => 'test_3D_secure', 'label' => esc_html__('Enable 3D-secure when the feed is set to Test mode', 'gf-heidelpay')),
 						),
-						'default_value'	=> 'no',
 					),
 
 					array(
@@ -503,7 +502,6 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 						'choices'		=> array(
 							array('name' => 'execDelayedAlways', 'label' => esc_html__('Always execute delayed actions, regardless of payment status', 'gf-heidelpay')),
 						),
-						'default_value'	=> '1',
 						'tooltip'		=> __('The delayed actions above will only be processed for successful transactions, unless this option is enabled.', 'gf-heidelpay'),
 					),
 
