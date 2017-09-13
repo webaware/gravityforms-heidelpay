@@ -2,7 +2,7 @@
 
 ## Changelog
 
-### 1.1.2, soon...
+### 1.1.2, 2017-09-13
 
 * fixed: Gravity Forms 2.3 compatibility; don't directly access database tables
 
