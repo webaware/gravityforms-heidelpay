@@ -5,7 +5,7 @@ Plugin URI: https://shop.webaware.com.au/downloads/gravity-forms-heidelpay/
 Author: WebAware
 Author URI: https://shop.webaware.com.au/
 Donate link: https://shop.webaware.com.au/donations/?donation_for=Gravity+Forms+heidelpay
-Tags: gravityforms, gravity forms, heidelpay, credit cards, donation, donations, payment
+Tags: gravity forms, heidelpay, credit cards, donations, payment
 Requires at least: 4.2
 Tested up to: 4.8
 Stable tag: 1.1.2
