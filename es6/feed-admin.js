@@ -6,7 +6,7 @@
 	* @param {String} selector
 	*/
 	function setVisibility(isVisible, selector) {
-		var elements = $(selector);
+		const elements = $(selector);
 
 		if (isVisible) {
 			elements.show();
@@ -34,7 +34,7 @@
 	* record changes in delay notifications individual checkboxes
 	*/
 	$("input.heidelpay-notification-checkbox").on("click change", function() {
-		var notifications = {};
+		const notifications = {};
 
 		$('.heidelpay-notification-checkbox').each(function() {
 			notifications[this.value] = this.checked ? 1 : 0;
@@ -54,7 +54,7 @@
 	* record changes in delay notifications individual checkboxes
 	*/
 	$("input.heidelpay-enabled-methods-checkbox").on("click change", function() {
-		var methods = {};
+		const methods = {};
 
 		$('.heidelpay-enabled-methods-checkbox').each(function() {
 			methods[this.value] = this.checked ? 1 : 0;
