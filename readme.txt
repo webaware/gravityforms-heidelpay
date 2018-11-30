@@ -1,7 +1,7 @@
 === Gravity Forms heidelpay ===
 Contributors: webaware
 Plugin Name: Gravity Forms heidelpay
-Plugin URI: https://shop.webaware.com.au/downloads/gravity-forms-heidelpay/
+Plugin URI: https://wordpress.org/plugins/gf-heidelpay/
 Author: WebAware
 Author URI: https://shop.webaware.com.au/
 Donate link: https://shop.webaware.com.au/donations/?donation_for=Gravity+Forms+heidelpay

@@ -1,9 +1,9 @@
 <?php
 /*
 Plugin Name: Gravity Forms heidelpay
-Plugin URI: https://shop.webaware.com.au/downloads/gravity-forms-heidelpay/
+Plugin URI: https://wordpress.org/plugins/gf-heidelpay/
 Description: Easily create online payment forms with Gravity Forms and heidelpay.
-Version: 1.1.2
+Version: 1.2.0-dev
 Author: WebAware
 Author URI: https://shop.webaware.com.au/
 Text Domain: gf-heidelpay
@@ -11,7 +11,7 @@ Domain Path: /languages/
 */
 
 /*
-copyright (c) 2016-2017 WebAware Pty Ltd (email : support@webaware.com.au)
+copyright (c) 2016-2018 WebAware Pty Ltd (email : support@webaware.com.au)
 
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
@@ -35,7 +35,7 @@ if (!defined('ABSPATH')) {
 define('GFHEIDELPAY_PLUGIN_FILE', __FILE__);
 define('GFHEIDELPAY_PLUGIN_ROOT', dirname(__FILE__) . '/');
 define('GFHEIDELPAY_PLUGIN_NAME', basename(dirname(__FILE__)) . '/' . basename(__FILE__));
-define('GFHEIDELPAY_PLUGIN_VERSION', '1.1.2');
+define('GFHEIDELPAY_PLUGIN_VERSION', '1.2.0-dev');
 
 // instantiate the plug-in
 require GFHEIDELPAY_PLUGIN_ROOT . 'includes/class.GFHeidelpayPlugin.php';

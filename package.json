@@ -1,15 +1,24 @@
 {
   "name": "gf-heidelpay",
-  "version": "1.1.2",
+  "version": "1.2.0-dev",
   "description": "Gravity Forms heidelpay",
   "main": "Gruntfile.js",
+  "browserslist": [
+    "> 0.5%",
+    "ios >= 9.3.5",
+    "not dead"
+  ],
   "devDependencies": {
-    "grunt": "^1.0.1",
-    "grunt-contrib-clean": "^1.1.0",
-    "grunt-contrib-compress": "^1.4.1",
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "grunt": "^1.0.3",
+    "grunt-babel": "^8.0.0",
+    "grunt-contrib-clean": "^2.0.0",
+    "grunt-contrib-compress": "^1.4.3",
     "grunt-contrib-copy": "^1.0.0",
-    "grunt-contrib-jshint": "^1.1.0",
-    "grunt-contrib-uglify": "^3.1.0"
+    "grunt-contrib-uglify-es": "^3.3.0",
+    "grunt-eslint": "^21.0.0"
   },
   "author": {
     "name": "WebAware",
@@ -18,5 +27,5 @@
   },
   "license": "GPL-2.0",
   "private": true,
-  "homepage": "https://shop.webaware.com.au/downloads/gravity-forms-heidelpay/"
+  "homepage": "https://wordpress.org/plugins/gf-heidelpay/"
 }
