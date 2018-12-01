@@ -1186,7 +1186,7 @@ class AddOn extends \GFPaymentAddOn {
 
 			// must have an entry, or nothing to do
 			if (empty($entries)) {
-				throw new GFDpsPxPayException(sprintf(__('Invalid transaction number: %s', 'gravity-forms-dps-pxpay'), $transactionNumber));
+				throw new GFDpsPxPayException(sprintf(__('Invalid transaction number: %s', 'gf-heidelpay'), $transactionNumber));
 			}
 			$entry = $entries[0];
 			$lead_id = rgar($entry, 'id');
@@ -1545,11 +1545,22 @@ class AddOn extends \GFPaymentAddOn {
 			$feeds = $this->get_feeds($form_id);
 			if (!empty($feeds)) {
 				// at least one feed for this add-on, so add our merge tags
-				$merge_tags[] = ['label' => esc_html_x('Transaction ID', 'merge tag label', 'gf-heidelpay'), 'tag' => '{transaction_id}'];
-				$merge_tags[] = ['label' => esc_html_x('Short ID',       'merge tag label', 'gf-heidelpay'), 'tag' => '{heidelpay_short_id}'];
-				$merge_tags[] = ['label' => esc_html_x('Return Code',    'merge tag label', 'gf-heidelpay'), 'tag' => '{heidelpay_return_code}'];
-				$merge_tags[] = ['label' => esc_html_x('Payment Amount', 'merge tag label', 'gf-heidelpay'), 'tag' => '{payment_amount}'];
-				$merge_tags[] = ['label' => esc_html_x('Payment Status', 'merge tag label', 'gf-heidelpay'), 'tag' => '{payment_status}'];
+				$tags = array_flip(wp_list_pluck($merge_tags, 'tag'));
+
+				$custom_tags = [
+					['label' => esc_html_x('Transaction ID', 'merge tag label', 'gf-heidelpay'), 'tag' => '{transaction_id}'],
+					['label' => esc_html_x('Short ID',       'merge tag label', 'gf-heidelpay'), 'tag' => '{heidelpay_short_id}'],
+					['label' => esc_html_x('Return Code',    'merge tag label', 'gf-heidelpay'), 'tag' => '{heidelpay_return_code}'],
+					['label' => esc_html_x('Payment Amount', 'merge tag label', 'gf-heidelpay'), 'tag' => '{payment_amount}'],
+					['label' => esc_html_x('Payment Status', 'merge tag label', 'gf-heidelpay'), 'tag' => '{payment_status}'],
+					['label' => esc_html_x('Entry Date',     'merge tag label', 'gf-heidelpay'), 'tag' => '{date_created}'],
+				];
+
+				foreach ($custom_tags as $custom) {
+					if (!isset($tags[$custom['tag']])) {
+						$merge_tags[] = $custom;
+					}
+				}
 			}
 		}
 
@@ -1593,6 +1604,7 @@ class AddOn extends \GFPaymentAddOn {
 				'{payment_amount}',
 				'{heidelpay_short_id}',
 				'{heidelpay_return_code}',
+				'{date_created}',
 			];
 			$values = [
 				rgar($entry, 'transaction_id', ''),
@@ -1600,7 +1612,16 @@ class AddOn extends \GFPaymentAddOn {
 				$payment_amount,
 				!empty($heidelpay_short_id)    ? $heidelpay_short_id    : '',
 				!empty($heidelpay_return_code) ? $heidelpay_return_code : '',
+				\GFCommon::format_date(rgar($entry, 'date_created'), false, '', false),
 			];
+
+			// maybe encode the results
+			if ($url_encode) {
+				$values = array_map('urlencode', $values);
+			}
+			elseif ($esc_html) {
+				$values = array_map('esc_html', $values);
+			}
 
 			$text = str_replace($tags, $values, $text);
 		}
