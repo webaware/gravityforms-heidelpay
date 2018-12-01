@@ -11,17 +11,17 @@ if (!defined('ABSPATH')) {
 <?php foreach ($methods as $method => $label) { ?>
 
 	<li class="heidelpay-enabled-methods">
-		<input type="checkbox" class="heidelpay-enabled-methods-checkbox" id="heidelpay-enabled-methods-<?php echo esc_attr($method); ?>"
-			value="<?php echo esc_attr($method); ?>" <?php checked(!empty($selections[$method])); ?> />
-		<label class="inline" for="heidelpay-enabled-methods-<?php echo esc_attr($method); ?>"><?php echo esc_html($label); ?></label>
+		<input type="checkbox" class="heidelpay-enabled-methods-checkbox" id="heidelpay-enabled-methods-<?= esc_attr($method); ?>"
+			value="<?= esc_attr($method); ?>" <?php checked(!empty($selections[$method])); ?> />
+		<label class="inline" for="heidelpay-enabled-methods-<?= esc_attr($method); ?>"><?= esc_html($label); ?></label>
 
 		<?php if ($method === 'CC'): ?>
 		<ul id="heidelpay-enabled-methods-creditcards">
 			<?php foreach ($creditcards as $creditcard => $label) { ?>
 			<li>
-				<input type="checkbox" class="heidelpay-enabled-methods-checkbox" id="heidelpay-enabled-methods-<?php echo esc_attr($creditcard); ?>"
-					value="<?php echo esc_attr($creditcard); ?>" <?php checked(!empty($selections[$creditcard])); ?> />
-				<label class="inline" for="heidelpay-enabled-methods-<?php echo esc_attr($creditcard); ?>"><?php echo esc_html($label); ?></label>
+				<input type="checkbox" class="heidelpay-enabled-methods-checkbox" id="heidelpay-enabled-methods-<?= esc_attr($creditcard); ?>"
+					value="<?= esc_attr($creditcard); ?>" <?php checked(!empty($selections[$creditcard])); ?> />
+				<label class="inline" for="heidelpay-enabled-methods-<?= esc_attr($creditcard); ?>"><?= esc_html($label); ?></label>
 			</li>
 			<?php } ?>
 		</ul>

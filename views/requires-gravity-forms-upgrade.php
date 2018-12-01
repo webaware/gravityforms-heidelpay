@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 
 <div class="notice notice-error">
 	<p>
-		<?php echo gf_heidelpay_external_link(
+		<?= gf_heidelpay_external_link(
 			sprintf(__('Gravity Forms heidelpay requires {{a}}Gravity Forms{{/a}} version %1$s or higher; your website has Gravity Forms version %2$s', 'gf-heidelpay'),
 				esc_html(MIN_VERSION_GF), esc_html(\GFCommon::$version)),
 			'https://webaware.com.au/get-gravity-forms'
