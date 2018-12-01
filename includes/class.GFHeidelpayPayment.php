@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 /**
 * Class for dealing with a heidelpay payment
 */
-class GFHeidelpayPayment {
+class HeidelpayAPI {
 
 	#region "constants"
 
@@ -265,7 +265,7 @@ class GFHeidelpayPayment {
 
 	/**
 	* populate members with defaults, and set account and environment information
-	* @param GFHeidelpayCredentials $creds
+	* @param Credentials $creds
 	* @param boolean $useSandbox
 	*/
 	public function __construct($creds, $useSandbox = true) {
@@ -280,7 +280,7 @@ class GFHeidelpayPayment {
 
 	/**
 	* request a Shared Page payment URL from gateway; throws exception on error with error described in exception message.
-	* @return GFHeidelpayResponseSharedPage
+	* @return ResponseSharedPage
 	* @throws GFHeidelpayException
 	*/
 	public function requestSharedPage() {
@@ -294,7 +294,7 @@ class GFHeidelpayPayment {
 
 		$response_raw = $this->apiPostRequest($request);
 
-		$response = new GFHeidelpayResponseSharedPage();
+		$response = new ResponseSharedPage();
 		$response->loadResponse($response_raw);
 
 		return $response;

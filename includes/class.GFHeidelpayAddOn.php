@@ -901,7 +901,7 @@ class AddOn extends \GFPaymentAddOn {
 				}
 
 				// make sure that gateway credentials have been set for feed, or globally
-				$creds = new GFHeidelpayCredentials($this, $feed);
+				$creds = new Credentials($this, $feed);
 				if ($creds->isIncomplete()) {
 					throw new GFHeidelpayException(__('Incomplete credentials for heidelpay payment; please tell the web master.', 'gf-heidelpay'));
 				}
@@ -1022,13 +1022,13 @@ class AddOn extends \GFPaymentAddOn {
 	* @param array $feed
 	* @param array $form
 	* @param array|false $entry
-	* @return GFHeidelpayPayment
+	* @return HeidelpayAPI
 	*/
 	protected function getPaymentRequest($formData, $feed, $form, $entry = false) {
 		// build a payment request and execute on API
-		$creds		= new GFHeidelpayCredentials($this, $feed);
+		$creds		= new Credentials($this, $feed);
 		$useTest	= !empty($feed['meta']['useTest']);
-		$paymentReq	= new GFHeidelpayPayment($creds, $useTest);
+		$paymentReq	= new HeidelpayAPI($creds, $useTest);
 
 		// generate a unique transaction ID to avoid collisions, e.g. between different installations using the same gateway account
 		$transactionID = uniqid();
@@ -1039,11 +1039,11 @@ class AddOn extends \GFPaymentAddOn {
 		switch (rgar($feed['meta'], 'paymentMethod', 'debit')) {
 
 			case 'authorize':
-				$paymentReq->transactionType = GFHeidelpayPayment::TRANS_CODE_RESERVE;
+				$paymentReq->transactionType = HeidelpayAPI::TRANS_CODE_RESERVE;
 				break;
 
 			default:
-				$paymentReq->transactionType = GFHeidelpayPayment::TRANS_CODE_DEBIT;
+				$paymentReq->transactionType = HeidelpayAPI::TRANS_CODE_DEBIT;
 				break;
 
 		}
@@ -1199,7 +1199,7 @@ class AddOn extends \GFPaymentAddOn {
 			$entry = $entries[0];
 			$lead_id = rgar($entry, 'id');
 
-			$response = new GFHeidelpayResponseCallback();
+			$response = new ResponseCallback();
 			$response->loadResponse($_POST);
 
 			$form = \GFFormsModel::get_form_meta($entry['form_id']);

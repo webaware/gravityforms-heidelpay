@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 /**
 * extend gateway response for Shared Page request
 */
-class GFHeidelpayResponseSharedPage extends GFHeidelpayResponse {
+class ResponseSharedPage extends Response {
 
 	#region members
 

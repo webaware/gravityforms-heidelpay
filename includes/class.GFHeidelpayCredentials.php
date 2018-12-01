@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 /**
 * gateway credentials logic
 */
-class GFHeidelpayCredentials {
+class Credentials {
 
 	public $sender;
 	public $login;

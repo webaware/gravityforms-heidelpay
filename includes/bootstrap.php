@@ -20,11 +20,11 @@ add_action('plugins_loaded', function() {
 */
 spl_autoload_register(function($class_name) {
 	static $classMap = [
-		'GFHeidelpayCredentials'				=> 'includes/class.GFHeidelpayCredentials.php',
-		'GFHeidelpayPayment'					=> 'includes/class.GFHeidelpayPayment.php',
-		'GFHeidelpayResponse'					=> 'includes/class.GFHeidelpayResponse.php',
-		'GFHeidelpayResponseCallback'			=> 'includes/class.GFHeidelpayResponseCallback.php',
-		'GFHeidelpayResponseSharedPage'			=> 'includes/class.GFHeidelpayResponseSharedPage.php',
+		'Credentials'				=> 'includes/class.GFHeidelpayCredentials.php',
+		'HeidelpayAPI'				=> 'includes/class.GFHeidelpayPayment.php',
+		'Response'					=> 'includes/class.GFHeidelpayResponse.php',
+		'ResponseCallback'			=> 'includes/class.GFHeidelpayResponseCallback.php',
+		'ResponseSharedPage'		=> 'includes/class.GFHeidelpayResponseSharedPage.php',
 	];
 
 	if (strpos($class_name, __NAMESPACE__) === 0) {

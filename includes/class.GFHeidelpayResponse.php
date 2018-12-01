@@ -8,7 +8,7 @@ if (!defined('ABSPATH')) {
 /**
 * Class for dealing with a gateway response
 */
-abstract class GFHeidelpayResponse {
+abstract class Response {
 
 	/**
 	* load gateway response data
