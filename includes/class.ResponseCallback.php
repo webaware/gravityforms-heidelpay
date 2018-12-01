@@ -188,7 +188,7 @@ class ResponseCallback extends Response {
 	* @return string
 	*/
 	public function getProcessingMessages() {
-		return array($this->PROCESSING_RETURN, $this->CLEARING_DESCRIPTOR);
+		return [$this->PROCESSING_RETURN, $this->CLEARING_DESCRIPTOR];
 	}
 
 	/**

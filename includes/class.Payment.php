@@ -305,7 +305,7 @@ class HeidelpayAPI {
 	* @return array list of errors in validation
 	*/
 	protected function validateAmount() {
-		$errors = array();
+		$errors = [];
 
 		if (!is_numeric($this->amount) || $this->amount <= 0) {
 			$errors[] = __('Amount must be given as a number in currency format', 'gravityforms-heidelpay');
@@ -322,7 +322,7 @@ class HeidelpayAPI {
 	* @return string
 	*/
 	public function getPayment() {
-		$request = array();
+		$request = [];
 
 		$request['SECURITY.SENDER']					= substr($this->sender, 0, 32);
 		$request['USER.LOGIN']						= substr($this->login, 0, 32);
@@ -359,7 +359,7 @@ class HeidelpayAPI {
 		$request['NAME.GIVEN']						= substr($this->firstName, 0, 40);
 		$request['NAME.FAMILY']						= substr($this->lastName, 0, 40);
 		$request['NAME.BIRTHDATE']					= substr($this->birthDate, 0, 10);
-		$request['ADDRESS.STREET']					= substr(implode(' ', array($this->address1, $this->address2)), 0, 50);
+		$request['ADDRESS.STREET']					= substr(implode(' ', [$this->address1, $this->address2]), 0, 50);
 		$request['ADDRESS.ZIP']						= substr($this->postcode, 0, 10);
 		$request['ADDRESS.CITY']					= substr($this->suburb, 0, 30);
 		$request['ADDRESS.STATE']					= substr($this->state, 0, 30);
@@ -395,18 +395,18 @@ class HeidelpayAPI {
 	* @return array
 	*/
 	protected function getPaymentMethods() {
-		$methods = array();
+		$methods = [];
 		$i = 0;
 
-		foreach (array('CC', 'DC', 'DD', 'OT', 'VA', 'PC', 'IV', 'PP') as $method) {
+		foreach (['CC', 'DC', 'DD', 'OT', 'VA', 'PC', 'IV', 'PP'] as $method) {
 			if (!empty($this->enabledMethods[$method])) {
 				$i++;
 				$methods["FRONTEND.PM.$i.METHOD"]	= $method;
 				$methods["FRONTEND.PM.$i.ENABLED"]	= 'true';
 
 				if ($method === 'CC') {
-					$cards = array();
-					foreach (array('VISA', 'MASTER', 'AMEX', 'JCB', 'DINERS', 'DISCOVER') as $cardcode) {
+					$cards = [];
+					foreach (['VISA', 'MASTER', 'AMEX', 'JCB', 'DINERS', 'DISCOVER'] as $cardcode) {
 						if (!empty($this->enabledMethods[$cardcode])) {
 							$cards[] = $cardcode;
 						}
@@ -449,15 +449,15 @@ class HeidelpayAPI {
 		$url = $this->useSandbox ? self::API_HOST_SANDBOX : self::API_HOST_LIVE;
 
 		// execute the request, and retrieve the response
-		$response = wp_remote_post($url, array(
+		$response = wp_remote_post($url, [
 			'user-agent'	=> $this->httpUserAgent,
 			'sslverify'		=> $this->sslVerifyPeer,
 			'timeout'		=> 30,
-			'headers'		=> array(
+			'headers'		=> [
 									'Content-Type'		=> 'application/x-www-form-urlencoded;charset=UTF-8',
-							   ),
+							],
 			'body'			=> $request,
-		));
+		]);
 
 		// check for http error
 		$this->checkHttpResponse($response);
