@@ -3,7 +3,7 @@
 Plugin Name: Gravity Forms heidelpay
 Plugin URI: https://wordpress.org/plugins/gf-heidelpay/
 Description: Easily create online payment forms with Gravity Forms and heidelpay.
-Version: 1.2.0-dev
+Version: 1.2.0
 Author: WebAware
 Author URI: https://shop.webaware.com.au/
 Text Domain: gf-heidelpay
@@ -36,7 +36,7 @@ define('GFHEIDELPAY_PLUGIN_FILE', __FILE__);
 define('GFHEIDELPAY_PLUGIN_ROOT', dirname(__FILE__) . '/');
 define('GFHEIDELPAY_PLUGIN_NAME', basename(dirname(__FILE__)) . '/' . basename(__FILE__));
 define('GFHEIDELPAY_PLUGIN_MIN_PHP', '5.6');
-define('GFHEIDELPAY_PLUGIN_VERSION', '1.2.0-dev');
+define('GFHEIDELPAY_PLUGIN_VERSION', '1.2.0');
 
 require GFHEIDELPAY_PLUGIN_ROOT . 'includes/functions-global.php';
 

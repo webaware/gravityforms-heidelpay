@@ -2,9 +2,10 @@
 
 ## Changelog
 
-### 1.2.0, soon...
+### 1.2.0, 2018-12-01
 
 * added: custom merge tag `{date_created}` so that notification resends can show the entry date instead of the current date
+* changed: minimum required PHP version is now 5.6; recommended version is PHP 7.2 or higher
 
 ### 1.1.2, 2017-09-13
 
