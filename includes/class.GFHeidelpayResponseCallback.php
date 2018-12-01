@@ -1,4 +1,5 @@
 <?php
+namespace webaware\gf_heidelpay;
 
 if (!defined('ABSPATH')) {
 	exit;

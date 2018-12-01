@@ -1,10 +1,17 @@
 <?php
+namespace webaware\gf_heidelpay;
+
 if (!defined('ABSPATH')) {
 	exit;
 }
 ?>
 
-<div class="error">
-	<p><?php printf(__('Gravity Forms heidelpay requires <a target="_blank" href="%1$s">Gravity Forms</a> version %2$s or higher; your website has Gravity Forms version %3$s', 'gf-heidelpay'),
-		'https://webaware.com.au/get-gravity-forms', esc_html(GFHeidelpayPlugin::MIN_VERSION_GF), esc_html(GFCommon::$version)); ?></p>
+<div class="notice notice-error">
+	<p>
+		<?php echo gf_heidelpay_external_link(
+			sprintf(__('Gravity Forms heidelpay requires {{a}}Gravity Forms{{/a}} version %1$s or higher; your website has Gravity Forms version %2$s', 'gf-heidelpay'),
+				esc_html(MIN_VERSION_GF), esc_html(\GFCommon::$version)),
+			'https://webaware.com.au/get-gravity-forms'
+		); ?>
+	</p>
 </div>

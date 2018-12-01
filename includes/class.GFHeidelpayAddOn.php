@@ -1,4 +1,5 @@
 <?php
+namespace webaware\gf_heidelpay;
 
 if (!defined('ABSPATH')) {
 	exit;
@@ -7,7 +8,7 @@ if (!defined('ABSPATH')) {
 /**
 * implement a Gravity Forms Payment Add-on instance
 */
-class GFHeidelpayAddOn extends GFPaymentAddOn {
+class AddOn extends \GFPaymentAddOn {
 
 	protected $validationMessages;						// any validation messages picked up for the form as a whole
 	protected $urlPaymentForm;							// URL for payment form where purchaser will enter credit card details
@@ -16,12 +17,6 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	protected $currency = null;							// current currency as detected in validation step, via feed settings
 	protected $feedDefaultFieldMap;						// map of default fields for feed
 
-	const META_TRANSACTION_ID				= 'heidelpay_txn_id';
-	const META_SHORT_ID						= 'heidelpay_short_id';
-	const META_RETURN_CODE					= 'heidelpay_return_code';
-	const META_FEED_ID						= 'heidelpay_feed_id';
-	const ENDPOINT_CONFIRMATION				= '__gfheidelpay';
-
 	/**
 	* static method for getting the instance of this singleton object
 	* @return self
@@ -29,7 +24,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	public static function get_instance() {
 		static $instance = null;
 
-		if (is_null($instance)) {
+		if ($instance === null) {
 			$instance = new self();
 		}
 
@@ -41,7 +36,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	*/
 	public function __construct() {
 		$this->_version						= GFHEIDELPAY_PLUGIN_VERSION;
-		$this->_min_gravityforms_version	= GFHeidelpayPlugin::MIN_VERSION_GF;
+		$this->_min_gravityforms_version	= MIN_VERSION_GF;
 		$this->_slug						= 'gravityforms-heidelpay';		// preserve old pre-wp.org slug here, for GF data compatibility
 		$this->_path						= GFHEIDELPAY_PLUGIN_NAME;
 		$this->_full_path					= GFHEIDELPAY_PLUGIN_FILE;
@@ -57,7 +52,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 
 		parent::__construct();
 
-		add_action('init', array($this, 'lateLocalise'), 50);
+		add_action('init', array($this, 'lateLocalise'), 9);
 		add_filter('gform_pre_render', array($this, 'detectFeedCurrency'));
 		add_filter('gform_validation', array($this, 'preValidate'), 15);
 		add_filter('gform_validation_message', array($this, 'gformValidationMessage'), 10, 2);
@@ -72,7 +67,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		add_filter('gform_is_delayed_pre_process_feed', array($this, 'gformIsDelayed'), 10, 4);
 		add_filter('gform_disable_post_creation', array($this, 'gformDelayPost'), 10, 3);
 
-		$this->defaultCurrency = GFCommon::get_currency();
+		$this->defaultCurrency = \GFCommon::get_currency();
 	}
 
 	/**
@@ -550,7 +545,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		$this->feedDefaultFieldMap = array();
 
 		$form_id = rgget( 'id' );
-		$form = RGFormsModel::get_form_meta( $form_id );
+		$form = \GFFormsModel::get_form_meta( $form_id );
 
 		if (!isset($this->feedDefaultFieldMap['billingInformation_description'])) {
 			$this->feedDefaultFieldMap['billingInformation_description']			= 'form_title';
@@ -782,9 +777,9 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	*/
 	protected function getCurrencies($default_label) {
 		if (!class_exists('RGCurrency', false)) {
-			require_once GFCommon::get_base_path() . '/currency.php';
+			require_once \GFCommon::get_base_path() . '/currency.php';
 		}
-		$currencies = RGCurrency::get_currencies();
+		$currencies = \RGCurrency::get_currencies();
 
 		$options = array();
 
@@ -871,7 +866,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 				$form  = $data['form'];
 
 				// make sure form hasn't already been submitted / processed
-				if ($this->hasFormBeenProcessed($form)) {
+				if (has_form_been_processed($form['id'])) {
 					throw new GFHeidelpayException(__('Payment already submitted and processed - please close your browser window.', 'gf-heidelpay'));
 				}
 
@@ -950,8 +945,8 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 //~ error_log(__METHOD__ . ": paymentReq =\n" . print_r($paymentReq,1));
 
 			// record some payment meta
-			gform_update_meta($entry['id'], self::META_TRANSACTION_ID, $paymentReq->transactionNumber);
-			gform_update_meta($entry['id'], self::META_FEED_ID, $feed['id']);
+			gform_update_meta($entry['id'], META_TRANSACTION_ID, $paymentReq->transactionNumber);
+			gform_update_meta($entry['id'], META_FEED_ID, $feed['id']);
 
 			$response = $paymentReq->requestSharedPage();
 
@@ -959,7 +954,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 
 			if ($response && $response->POST_VALIDATION === 'ACK') {
 				$this->urlPaymentForm = $response->FRONTEND_REDIRECT_URL;
-				GFFormsModel::update_lead_property($entry['id'], 'payment_status', 'Processing');
+				\GFFormsModel::update_lead_property($entry['id'], 'payment_status', 'Processing');
 				$entry['payment_status']	= 'Processing';
 			}
 			else {
@@ -989,7 +984,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 			$this->log_error(__FUNCTION__ . ': exception = ' . $e->getMessage());
 
 			// record payment failure, and set hook for displaying error message
-			GFFormsModel::update_lead_property($entry['id'], 'payment_status', 'Failed');
+			\GFFormsModel::update_lead_property($entry['id'], 'payment_status', 'Failed');
 			$this->error_msg = $e->getMessage();
 			add_filter('gform_confirmation', array($this, 'displayPaymentFailure'), 1000, 4);
 		}
@@ -1007,10 +1002,10 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	*/
 	public function displayPaymentFailure($confirmation, $form, $entry, $ajax) {
 		// record entry's unique ID in database, to signify that it has been processed so don't attempt another payment!
-		gform_update_meta($entry['id'], 'heidelpay_unique_id', GFFormsModel::get_form_unique_id($form['id']));
+		gform_update_meta($entry['id'], META_UNIQUE_ID, \GFFormsModel::get_form_unique_id($form['id']));
 
 		// create a "confirmation message" in which to display the error
-		$default_anchor = count(GFCommon::get_fields_by_type($form, array('page'))) > 0 ? 1 : 0;
+		$default_anchor = count(\GFCommon::get_fields_by_type($form, array('page'))) > 0 ? 1 : 0;
 		$default_anchor = apply_filters('gform_confirmation_anchor_'.$form['id'], apply_filters('gform_confirmation_anchor', $default_anchor));
 		$anchor = $default_anchor ? "<a id='gf_{$form["id"]}' name='gf_{$form["id"]}' class='gform_anchor' ></a>" : '';
 		$cssClass = rgar($form, 'cssClass');
@@ -1019,28 +1014,6 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		ob_start();
 		include GFHEIDELPAY_PLUGIN_ROOT . 'views/error-payment-failure.php';
 		return ob_get_clean();
-	}
-
-	/**
-	* check whether this form entry's unique ID has already been used; if so, we've already done/doing a payment attempt.
-	* @param array $form
-	* @return boolean
-	*/
-	protected function hasFormBeenProcessed($form) {
-		$unique_id = RGFormsModel::get_form_unique_id($form['id']);
-
-		$search = array(
-			'field_filters' => array(
-									array(
-										'key'		=> 'heidelpay_unique_id',
-										'value'		=> $unique_id,
-									),
-								),
-		);
-
-		$entries = GFAPI::get_entries($form['id'], $search);
-
-		return !empty($entries);
 	}
 
 	/**
@@ -1100,7 +1073,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		$paymentReq->suburb					= $formData['city'];
 		$paymentReq->state					= $formData['state'];
 		$paymentReq->postcode				= $formData['zip'];
-		$paymentReq->country				= GFCommon::get_country_code($formData['country']);
+		$paymentReq->country				= \GFCommon::get_country_code($formData['country']);
 		$paymentReq->emailAddress			= $formData['email'];
 		$paymentReq->phone					= $formData['phone'];
 		$paymentReq->mobile					= $formData['mobile'];
@@ -1170,7 +1143,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	public function redirect_url($feed, $submission_data, $form, $entry) {
 		if ($this->urlPaymentForm) {
 			// record entry's unique ID in database, to signify that it has been processed so don't attempt another payment!
-			gform_update_meta($entry['id'], 'heidelpay_unique_id', GFFormsModel::get_form_unique_id($form['id']));
+			gform_update_meta($entry['id'], META_UNIQUE_ID, \GFFormsModel::get_form_unique_id($form['id']));
 		}
 
 		return $this->urlPaymentForm;
@@ -1212,12 +1185,12 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 			$search = array(
 				'field_filters' => array(
 										array(
-											'key'		=> self::META_TRANSACTION_ID,
+											'key'		=> META_TRANSACTION_ID,
 											'value'		=> $transactionNumber,
 										),
 									),
 			);
-			$entries = GFAPI::get_entries(0, $search);
+			$entries = \GFAPI::get_entries(0, $search);
 
 			// must have an entry, or nothing to do
 			if (empty($entries)) {
@@ -1229,7 +1202,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 			$response = new GFHeidelpayResponseCallback();
 			$response->loadResponse($_POST);
 
-			$form = GFFormsModel::get_form_meta($entry['form_id']);
+			$form = \GFFormsModel::get_form_meta($entry['form_id']);
 			$feed = $this->getFeed($lead_id);
 
 			// capture current state of lead
@@ -1249,8 +1222,8 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 						'transaction_id'			=> $response->IDENTIFICATION_UNIQUEID,
 					);
 					$action['note']					=  $this->getPaymentNote($capture, $action, $response->getProcessingMessages());
-					$entry[self::META_SHORT_ID]		=  $response->IDENTIFICATION_SHORTID;
-					$entry[self::META_RETURN_CODE]	=  $response->PROCESSING_RETURN_CODE;
+					$entry[META_SHORT_ID]		=  $response->IDENTIFICATION_SHORTID;
+					$entry[META_RETURN_CODE]	=  $response->PROCESSING_RETURN_CODE;
 					$entry['currency']				=  $response->CLEARING_CURRENCY;
 					$this->complete_payment($entry, $action);
 
@@ -1263,10 +1236,10 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 					$entry['payment_status']		=  'Failed';
 					$entry['payment_date']			=  $response->CLEARING_DATE;
 					$entry['currency']				=  $response->CLEARING_CURRENCY;
-					$entry[self::META_RETURN_CODE]	=  $response->PROCESSING_RETURN_CODE;
+					$entry[META_RETURN_CODE]	=  $response->PROCESSING_RETURN_CODE;
 
 					// fail_payment() below doesn't update whole entry, so we need to do it here
-					GFAPI::update_entry($entry);
+					\GFAPI::update_entry($entry);
 
 					if ($response->FRONTEND_REQUEST_CANCELLED) {
 						$note = esc_html('Transaction canceled by customer', 'gf-heidelpay');
@@ -1310,7 +1283,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 				$hash = wp_hash(wp_json_encode($query));
 				$query['hash']	=  $hash;
 				$query = base64_encode(wp_json_encode($query));
-				$redirect_url = esc_url_raw(add_query_arg(self::ENDPOINT_CONFIRMATION, $query, $entry['source_url']));
+				$redirect_url = esc_url_raw(add_query_arg(ENDPOINT_CONFIRMATION, $query, $entry['source_url']));
 			}
 			echo $redirect_url;
 			exit;
@@ -1394,7 +1367,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		if ($feed['meta']['delayPost']) {
 			if (apply_filters('gfheidelpay_delayed_post_create', $execute_delayed, $entry, $form, $feed)) {
 				$this->log_debug(sprintf('executing delayed post creation; form id %s, lead id %s', $form['id'], $entry['id']));
-				GFFormsModel::create_post($form, $entry);
+				\GFFormsModel::create_post($form, $entry);
 			}
 		}
 
@@ -1431,7 +1404,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		// make sure we have permission
 		check_admin_referer('gforms_save_entry', 'gforms_save_entry');
 
-		$entry = GFFormsModel::get_lead($entry_id);
+		$entry = \GFFormsModel::get_lead($entry_id);
 
 		// make sure that we're editing the entry and are allowed to change it
 		if (!$this->canEditPaymentDetails($entry, 'update')) {
@@ -1454,10 +1427,10 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		}
 
 
-		GFAPI::update_entry($entry);
+		\GFAPI::update_entry($entry);
 
 		$user = wp_get_current_user();
-		GFFormsModel::add_note($entry['id'], $user->ID, $user->display_name, esc_html($note));
+		\GFFormsModel::add_note($entry['id'], $user->ID, $user->display_name, esc_html($note));
 	}
 
 	/**
@@ -1465,11 +1438,11 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	*/
 	public function processFormConfirmation() {
 		// check for redirect to Gravity Forms page with our encoded parameters
-		if (isset($_GET[self::ENDPOINT_CONFIRMATION])) {
+		if (isset($_GET[ENDPOINT_CONFIRMATION])) {
 			do_action('gfheidelpay_process_confirmation');
 
 			// decode the encoded form and lead parameters
-			$query = json_decode(base64_decode($_GET[self::ENDPOINT_CONFIRMATION]), true);
+			$query = json_decode(base64_decode($_GET[ENDPOINT_CONFIRMATION]), true);
 			$check = array(
 				'form_id'	=> rgar($query, 'form_id'),
 				'lead_id'	=> rgar($query, 'lead_id'),
@@ -1485,19 +1458,19 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 				}
 
 				// load form and lead data
-				$form = GFFormsModel::get_form_meta($query['form_id']);
-				$lead = GFFormsModel::get_lead($query['lead_id']);
+				$form = \GFFormsModel::get_form_meta($query['form_id']);
+				$lead = \GFFormsModel::get_lead($query['lead_id']);
 
 				do_action('gfheidelpay_process_confirmation_parsed', $lead, $form);
 
 				// get confirmation page
 				if (!class_exists('GFFormDisplay', false)) {
-					require_once(GFCommon::get_base_path() . '/form_display.php');
+					require_once(\GFCommon::get_base_path() . '/form_display.php');
 				}
-				$confirmation = GFFormDisplay::handle_confirmation($form, $lead, false);
+				$confirmation = \GFFormDisplay::handle_confirmation($form, $lead, false);
 
 				// preload the GF submission, ready for processing the confirmation message
-				GFFormDisplay::$submission[$form['id']] = array(
+				\GFFormDisplay::$submission[$form['id']] = array(
 					'is_confirmation'		=> true,
 					'confirmation_message'	=> $confirmation,
 					'form'					=> $form,
@@ -1546,7 +1519,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 			}
 		}
 
-		$entry_meta[self::META_SHORT_ID] = array(
+		$entry_meta[META_SHORT_ID] = array(
 			'label'					=> esc_html_x('heidelpay short ID', 'entry meta label', 'gf-heidelpay'),
 			'is_numeric'			=> false,
 			'is_default_column'		=> false,
@@ -1555,7 +1528,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 										),
 		);
 
-		$entry_meta[self::META_RETURN_CODE] = array(
+		$entry_meta[META_RETURN_CODE] = array(
 			'label'					=> esc_html_x('heidelpay return code', 'entry meta label', 'gf-heidelpay'),
 			'is_numeric'			=> false,
 			'is_default_column'		=> false,
@@ -1611,12 +1584,12 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 		$gateway = gform_get_meta($entry['id'], 'payment_gateway');
 
 		if ($gateway === $this->_slug) {
-			$heidelpay_short_id    = gform_get_meta($entry['id'], self::META_SHORT_ID);
-			$heidelpay_return_code = gform_get_meta($entry['id'], self::META_RETURN_CODE);
+			$heidelpay_short_id    = gform_get_meta($entry['id'], META_SHORT_ID);
+			$heidelpay_return_code = gform_get_meta($entry['id'], META_RETURN_CODE);
 
 			// format payment amount as currency
 			if (isset($entry['payment_amount'])) {
-				$payment_amount = GFCommon::format_number($entry['payment_amount'], 'currency', rgar($entry, 'currency', ''));
+				$payment_amount = \GFCommon::format_number($entry['payment_amount'], 'currency', rgar($entry, 'currency', ''));
 			}
 			else {
 				$payment_amount = '';
@@ -1650,7 +1623,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	*/
 	protected function getFeed($lead_id) {
 		if ($this->feed !== false && (empty($this->feed['lead_id']) || $this->feed['lead_id'] != $lead_id)) {
-			$this->feed = $this->get_feed(gform_get_meta($lead_id, self::META_FEED_ID));
+			$this->feed = $this->get_feed(gform_get_meta($lead_id, META_FEED_ID));
 			if ($this->feed) {
 				$this->feed['lead_id'] = $lead_id;
 			}
@@ -1667,9 +1640,9 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 	public function gformPaymentDetails($form_id, $entry) {
 		$payment_gateway = gform_get_meta($entry['id'], 'payment_gateway');
 		if ($payment_gateway === $this->_slug) {
-			$return_code	= gform_get_meta($entry['id'], self::META_RETURN_CODE);
-			$short_id		= gform_get_meta($entry['id'], self::META_SHORT_ID);
-			$txn_id			= gform_get_meta($entry['id'], self::META_TRANSACTION_ID);
+			$return_code	= gform_get_meta($entry['id'], META_RETURN_CODE);
+			$short_id		= gform_get_meta($entry['id'], META_SHORT_ID);
+			$txn_id			= gform_get_meta($entry['id'], META_TRANSACTION_ID);
 
 			require GFHEIDELPAY_PLUGIN_ROOT . 'views/admin-entry-payment-details.php';
 		}
@@ -1732,7 +1705,7 @@ class GFHeidelpayAddOn extends GFPaymentAddOn {
 			$message = esc_html__('Payment has been authorized successfully. Amount: %1$s. Transaction ID: %2$s.', 'gf-heidelpay');
 		}
 
-		$amount = GFCommon::to_money($results['amount'], $results['currency']);
+		$amount = \GFCommon::to_money($results['amount'], $results['currency']);
 
 		$note = sprintf($message, $amount, $results['transaction_id']);
 		if (!empty($messages)) {

@@ -35,8 +35,14 @@ if (!defined('ABSPATH')) {
 define('GFHEIDELPAY_PLUGIN_FILE', __FILE__);
 define('GFHEIDELPAY_PLUGIN_ROOT', dirname(__FILE__) . '/');
 define('GFHEIDELPAY_PLUGIN_NAME', basename(dirname(__FILE__)) . '/' . basename(__FILE__));
+define('GFHEIDELPAY_PLUGIN_MIN_PHP', '5.6');
 define('GFHEIDELPAY_PLUGIN_VERSION', '1.2.0-dev');
 
-// instantiate the plug-in
-require GFHEIDELPAY_PLUGIN_ROOT . 'includes/class.GFHeidelpayPlugin.php';
-GFHeidelpayPlugin::getInstance();
+require GFHEIDELPAY_PLUGIN_ROOT . 'includes/functions-global.php';
+
+if (version_compare(PHP_VERSION, GFHEIDELPAY_PLUGIN_MIN_PHP, '<')) {
+	add_action('admin_notices', 'gf_heidelpay_fail_php_version');
+	return;
+}
+
+require GFHEIDELPAY_PLUGIN_ROOT . 'includes/bootstrap.php';

@@ -1,22 +1,14 @@
 <?php
+namespace webaware\gf_heidelpay;
 
 if (!defined('ABSPATH')) {
 	exit;
 }
 
 /**
-* custom exception types
-*/
-class GFHeidelpayException extends Exception {}
-class GFHeidelpayCurlException extends Exception {}
-
-/**
 * class for managing the plugin
 */
-class GFHeidelpayPlugin {
-
-	// minimum versions required
-	const MIN_VERSION_GF		= '2.0';
+class Plugin {
 
 	/**
 	* static method for getting the instance of this singleton object
@@ -25,7 +17,7 @@ class GFHeidelpayPlugin {
 	public static function getInstance() {
 		static $instance = null;
 
-		if (is_null($instance)) {
+		if ($instance === null) {
 			$instance = new self();
 		}
 
@@ -33,18 +25,18 @@ class GFHeidelpayPlugin {
 	}
 
 	/**
+	* hide constructor
+	*/
+	private function __construct() {}
+
+	/**
 	* initialise plugin
 	*/
-	private function __construct() {
-		spl_autoload_register(array(__CLASS__, 'autoload'));
-
-		add_action('gform_loaded', array($this, 'addonInit'));
-		add_action('init', array($this, 'loadTextDomain'));
-
-		if (is_admin()) {
-			require GFHEIDELPAY_PLUGIN_ROOT . 'includes/class.GFHeidelpayAdmin.php';
-			new GFHeidelpayAdmin();
-		}
+	public function pluginStart() {
+		add_action('gform_loaded', [$this, 'addonInit']);
+		add_action('init', 'gf_heidelpay_load_text_domain', 8);	// use priority 8 to get in before our add-on uses translated text
+		add_action('admin_notices', [$this, 'checkPrerequisites']);
+		add_filter('plugin_row_meta', [$this, 'pluginDetailsLinks'], 10, 2);
 	}
 
 	/**
@@ -55,60 +47,44 @@ class GFHeidelpayPlugin {
 			return;
 		}
 
-		if (self::hasMinimumGF()) {
+		if (has_required_gravityforms()) {
 			// load add-on framework and hook our add-on
-			GFForms::include_payment_addon_framework();
+			\GFForms::include_payment_addon_framework();
 
 			require GFHEIDELPAY_PLUGIN_ROOT . 'includes/class.GFHeidelpayAddOn.php';
-			GFAddOn::register('GFHeidelpayAddOn');
+			\GFAddOn::register(__NAMESPACE__ . '\\AddOn');
 		}
 	}
 
 	/**
-	* load text translations
+	* check for required prerequisites, tell admin if any are missing
 	*/
-	public function loadTextDomain() {
-		load_plugin_textdomain('gf-heidelpay', false, plugin_basename(dirname(GFHEIDELPAY_PLUGIN_FILE)) . '/languages/');
-	}
-
-	/**
-	* compare Gravity Forms version against target
-	* @param string $target
-	* @param string $operator
-	* @return bool
-	*/
-	public static function versionCompareGF($target, $operator) {
-		if (class_exists('GFCommon', false)) {
-			return version_compare(GFCommon::$version, $target, $operator);
+	public function checkPrerequisites() {
+		if (!gf_heidelpay_can_show_admin_notices()) {
+			return;
 		}
 
-		return false;
-	}
-
-	/**
-	* compare Gravity Forms version against minimum required version
-	* @return bool
-	*/
-	public static function hasMinimumGF() {
-		return self::versionCompareGF(self::MIN_VERSION_GF, '>=');
-	}
-
-	/**
-	* autoload classes as/when needed
-	* @param string $class_name name of class to attempt to load
-	*/
-	public static function autoload($class_name) {
-		static $classMap = array (
-			'GFHeidelpayCredentials'				=> 'includes/class.GFHeidelpayCredentials.php',
-			'GFHeidelpayPayment'					=> 'includes/class.GFHeidelpayPayment.php',
-			'GFHeidelpayResponse'					=> 'includes/class.GFHeidelpayResponse.php',
-			'GFHeidelpayResponseCallback'			=> 'includes/class.GFHeidelpayResponseCallback.php',
-			'GFHeidelpayResponseSharedPage'			=> 'includes/class.GFHeidelpayResponseSharedPage.php',
-		);
-
-		if (isset($classMap[$class_name])) {
-			require GFHEIDELPAY_PLUGIN_ROOT . $classMap[$class_name];
+		// of course, we need Gravity Forms
+		if (!class_exists('GFCommon', false)) {
+			include GFHEIDELPAY_PLUGIN_ROOT . 'views/requires-gravity-forms.php';
 		}
+		elseif (!has_required_gravityforms()) {
+			include GFHEIDELPAY_PLUGIN_ROOT . 'views/requires-gravity-forms-upgrade.php';
+		}
+	}
+
+	/**
+	* action hook for adding plugin details links
+	*/
+	public function pluginDetailsLinks($links, $file) {
+		if ($file === GFHEIDELPAY_PLUGIN_NAME) {
+			$links[] = sprintf('<a href="https://wordpress.org/support/plugin/gf-heidelpay" rel="noopener" target="_blank">%s</a>', esc_html_x('Get help', 'plugin details links', 'gf-heidelpay'));
+			$links[] = sprintf('<a href="https://wordpress.org/plugins/gf-heidelpay/" rel="noopener" target="_blank">%s</a>', esc_html_x('Rating', 'plugin details links', 'gf-heidelpay'));
+			$links[] = sprintf('<a href="https://translate.wordpress.org/projects/wp-plugins/gf-heidelpay" rel="noopener" target="_blank">%s</a>', esc_html_x('Translate', 'plugin details links', 'gf-heidelpay'));
+			$links[] = sprintf('<a href="https://shop.webaware.com.au/donations/?donation_for=Gravity+Forms+heidelpay" rel="noopener" target="_blank">%s</a>', esc_html_x('Donate', 'plugin details links', 'gf-heidelpay'));
+		}
+
+		return $links;
 	}
 
 }
