@@ -933,10 +933,6 @@ class AddOn extends \GFPaymentAddOn {
 		$this->log_debug('========= initiating transaction request');
 		$this->log_debug(sprintf('%s: feed #%d - %s', __FUNCTION__, $feed['id'], $feed['meta']['feedName']));
 
-//~ error_log(__METHOD__ . ": submission_data =\n" . print_r($submission_data,1));
-//~ error_log(__METHOD__ . ": feed =\n" . print_r($feed,1));
-//~ error_log(__METHOD__ . ": entry =\n" . print_r($entry,1));
-
 		try {
 			$paymentReq = $this->getPaymentRequest($submission_data, $feed, $form, $entry);
 
@@ -944,15 +940,11 @@ class AddOn extends \GFPaymentAddOn {
 			$paymentReq->redirectURL		= $returnURL;
 			$paymentReq->cancelUrl			= $returnURL;
 
-//~ error_log(__METHOD__ . ": paymentReq =\n" . print_r($paymentReq,1));
-
 			// record some payment meta
 			gform_update_meta($entry['id'], META_TRANSACTION_ID, $paymentReq->transactionNumber);
 			gform_update_meta($entry['id'], META_FEED_ID, $feed['id']);
 
 			$response = $paymentReq->requestSharedPage();
-
-//~ error_log(__METHOD__ . ": response =\n" . print_r($response,1));
 
 			if ($response && $response->POST_VALIDATION === 'ACK') {
 				$this->urlPaymentForm = $response->FRONTEND_REDIRECT_URL;
@@ -981,8 +973,6 @@ class AddOn extends \GFPaymentAddOn {
 			}
 		}
 		catch (GFHeidelpayException $e) {
-
-//~ error_log(__METHOD__ . ": exception =\n" . $e->getMessage());
 			$this->log_error(__FUNCTION__ . ': exception = ' . $e->getMessage());
 
 			// record payment failure, and set hook for displaying error message
