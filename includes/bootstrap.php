@@ -10,7 +10,7 @@ if (!defined('ABSPATH')) {
 */
 add_action('plugins_loaded', function() {
 	require GFHEIDELPAY_PLUGIN_ROOT . 'includes/functions.php';
-	require GFHEIDELPAY_PLUGIN_ROOT . 'includes/class.GFHeidelpayPlugin.php';
+	require GFHEIDELPAY_PLUGIN_ROOT . 'includes/class.Plugin.php';
 	Plugin::getInstance()->pluginStart();
 }, 5);
 
@@ -20,11 +20,11 @@ add_action('plugins_loaded', function() {
 */
 spl_autoload_register(function($class_name) {
 	static $classMap = [
-		'Credentials'				=> 'includes/class.GFHeidelpayCredentials.php',
-		'HeidelpayAPI'				=> 'includes/class.GFHeidelpayPayment.php',
-		'Response'					=> 'includes/class.GFHeidelpayResponse.php',
-		'ResponseCallback'			=> 'includes/class.GFHeidelpayResponseCallback.php',
-		'ResponseSharedPage'		=> 'includes/class.GFHeidelpayResponseSharedPage.php',
+		'Credentials'				=> 'includes/class.Credentials.php',
+		'HeidelpayAPI'				=> 'includes/class.Payment.php',
+		'Response'					=> 'includes/class.Response.php',
+		'ResponseCallback'			=> 'includes/class.ResponseCallback.php',
+		'ResponseSharedPage'		=> 'includes/class.ResponseSharedPage.php',
 	];
 
 	if (strpos($class_name, __NAMESPACE__) === 0) {
