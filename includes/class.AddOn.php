@@ -1169,7 +1169,7 @@ class AddOn extends \GFPaymentAddOn {
 	* process the gateway callback
 	*/
 	public function callback() {
-		self::log_debug('========= processing transaction result');
+		$this->log_debug('========= processing transaction result');
 
 		$transactionNumber = rgget('txid');
 
@@ -1283,7 +1283,7 @@ class AddOn extends \GFPaymentAddOn {
 		catch (GFHeidelpayException $e) {
 			// TODO: what now?
 			echo nl2br(esc_html($e->getMessage()));
-			self::log_error(__FUNCTION__ . ': ' . $e->getMessage());
+			$this->log_error(__FUNCTION__ . ': ' . $e->getMessage());
 			exit;
 		}
 	}
