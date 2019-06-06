@@ -40,7 +40,7 @@ function gf_heidelpay_can_show_admin_notices() {
 * load text translations
 */
 function gf_heidelpay_load_text_domain() {
-	load_plugin_textdomain('gravity-forms-dps-pxpay', false, plugin_basename(GFHEIDELPAY_PLUGIN_ROOT . 'languages'));
+	load_plugin_textdomain('gf-heidelpay', false, plugin_basename(GFHEIDELPAY_PLUGIN_ROOT . 'languages'));
 }
 
 /**

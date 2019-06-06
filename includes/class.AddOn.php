@@ -1186,7 +1186,7 @@ class AddOn extends \GFPaymentAddOn {
 
 			// must have an entry, or nothing to do
 			if (empty($entries)) {
-				throw new GFDpsPxPayException(sprintf(__('Invalid transaction number: %s', 'gf-heidelpay'), $transactionNumber));
+				throw new GFHeidelpayException(sprintf(__('Invalid transaction number: %s', 'gf-heidelpay'), $transactionNumber));
 			}
 			$entry = $entries[0];
 			$lead_id = rgar($entry, 'id');
