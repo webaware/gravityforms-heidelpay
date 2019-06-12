@@ -1228,7 +1228,7 @@ class AddOn extends \GFPaymentAddOn {
 					$entry['payment_status']		=  'Failed';
 					$entry['payment_date']			=  $response->CLEARING_DATE;
 					$entry['currency']				=  $response->CLEARING_CURRENCY;
-					$entry[META_RETURN_CODE]	=  $response->PROCESSING_RETURN_CODE;
+					$entry[META_RETURN_CODE]		=  $response->PROCESSING_RETURN_CODE;
 
 					// fail_payment() below doesn't update whole entry, so we need to do it here
 					\GFAPI::update_entry($entry);
