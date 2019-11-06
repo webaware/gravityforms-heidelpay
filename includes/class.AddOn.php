@@ -96,6 +96,18 @@ class AddOn extends \GFPaymentAddOn {
 	}
 
 	/**
+	* run add-on framework setup routines, then check for upgrade requirements
+	*/
+	public function setup() {
+		parent::setup();
+
+		if (get_plugin_schema_version() < SCHEMA_VERSION) {
+			require GFHEIDELPAY_PLUGIN_ROOT . 'includes/class.SchemaUpgrade.php';
+			new SchemaUpgrade($this);
+		}
+	}
+
+	/**
 	* enqueue required styles
 	*/
 	public function styles() {
@@ -471,7 +483,7 @@ class AddOn extends \GFPaymentAddOn {
 						'label'			=> esc_html_x('Post Payment Actions', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'checkbox',
 						'choices'		=> [
-							['name' => 'delayPost', 'label' => esc_html__('Create post only when transaction completes', 'gf-heidelpay')],
+							['name' => 'delay_post', 'label' => esc_html__('Create post only when transaction completes', 'gf-heidelpay')],
 						],
 						'tooltip'		=> esc_html__('Select which actions should only occur after transaction has been completed.', 'gf-heidelpay')
 										.  '<br/><br/>'
@@ -1325,7 +1337,7 @@ class AddOn extends \GFPaymentAddOn {
 	public function gformDelayPost($is_delayed, $form, $entry) {
 		$feed = $this->get_single_submission_feed($entry);
 
-		if ($entry['payment_status'] === 'Processing' && !empty($feed['meta']['delayPost'])) {
+		if ($entry['payment_status'] === 'Processing' && !empty($feed['meta']['delay_post'])) {
 			$is_delayed = true;
 			$this->log_debug(sprintf('delay post creation: form id %s, lead id %s', $form['id'], $entry['id']));
 		}
@@ -1370,7 +1382,7 @@ class AddOn extends \GFPaymentAddOn {
 		// can filter each delayed action to permit / deny execution
 		$execute_delayed = in_array($entry['payment_status'], ['Paid', 'Pending']) || $feed['meta']['execDelayedAlways'];
 
-		if ($feed['meta']['delayPost']) {
+		if ($feed['meta']['delay_post']) {
 			if (apply_filters('gfheidelpay_delayed_post_create', $execute_delayed, $entry, $form, $feed)) {
 				$this->log_debug(sprintf('executing delayed post creation; form id %s, lead id %s', $form['id'], $entry['id']));
 				\GFFormsModel::create_post($form, $entry);

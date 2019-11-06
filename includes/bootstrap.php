@@ -8,6 +8,10 @@ if (!defined('ABSPATH')) {
 // minimum versions required
 const MIN_VERSION_GF		= '2.0';
 
+// current data version
+const SCHEMA_VERSION					= 1;
+const SCHEMA_VERSION_OPTION				= 'gfheidelpay_schema';
+
 // entry meta keys
 const META_TRANSACTION_ID				= 'heidelpay_txn_id';
 const META_SHORT_ID						= 'heidelpay_short_id';

@@ -48,3 +48,19 @@ function has_form_been_processed($form_id) {
 
 	return !empty($entries);
 }
+
+/**
+* get current schema version
+* @return int
+*/
+function get_plugin_schema_version() {
+	return absint(get_option(SCHEMA_VERSION_OPTION));
+}
+
+/**
+* set new schema version
+* @param int $schema_version
+*/
+function set_plugin_schema_version($schema_version) {
+	update_option(SCHEMA_VERSION_OPTION, $schema_version);
+}
