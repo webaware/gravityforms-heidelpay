@@ -2,7 +2,7 @@
 
 ## Changelog
 
-### 1.2.1, 2019-11-06
+### 1.3.0, 2019-11-06
 
 * fixed: load correct translation domain so that text can be translated
 * fixed: was calling the wrong exception class when there was an error

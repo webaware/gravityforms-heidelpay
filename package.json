@@ -1,6 +1,6 @@
 {
   "name": "gf-heidelpay",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Gravity Forms heidelpay",
   "main": "Gruntfile.js",
   "browserslist": [
