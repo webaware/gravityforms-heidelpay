@@ -297,6 +297,12 @@ class AddOn extends \GFPaymentAddOn {
 	public function feed_settings_fields() {
 		$this->setFeedDefaultFieldMap();
 
+		// set default transaction type to prevent User Rego add-on breaking new feeds with unmet prerequisite
+		$current = $this->get_current_settings();
+		if ($current === null) {
+			$this->set_settings(['transactionType' => 'product']);
+		}
+
 		$fields = [
 
 			#region "core settings"
