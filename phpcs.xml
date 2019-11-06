@@ -37,7 +37,7 @@
 	</rule>
 
 	<rule ref="Generic.Arrays.DisallowLongArraySyntax">
-		<exclude-pattern>nextgen-download-gallery.php</exclude-pattern>
+		<exclude-pattern>gravityforms-heidelpay.php</exclude-pattern>
 		<exclude-pattern>includes/functions-global.php</exclude-pattern>
 		<exclude-pattern>views/requires-php.php</exclude-pattern>
 	</rule>
@@ -55,5 +55,8 @@
 	</rule>
 
 	<rule ref="Squiz.PHP.CommentedOutCode" />
+	<rule ref="Squiz.PHP.DiscouragedFunctions" />
+	<rule ref="Squiz.PHP.NonExecutableCode" />
+	<rule ref="Squiz.Strings.DoubleQuoteUsage.NotRequired" />
 
 </ruleset>
