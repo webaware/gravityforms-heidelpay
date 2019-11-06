@@ -6,6 +6,7 @@
 
 * fixed: load correct translation domain so that text can be translated
 * fixed: was calling the wrong exception class when there was an error
+* changed: support all Gravity Forms add-ons that register delayed action support through the Add-on framework
 
 ### 1.2.0, 2018-12-01
 

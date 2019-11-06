@@ -64,6 +64,7 @@ class AddOn extends \GFPaymentAddOn {
 		add_action('gform_payment_details', [$this, 'gformPaymentDetails'], 10, 2);
 
 		// handle deferrals
+		add_filter("gform_{$this->_slug}_feed_settings_fields", [$this, 'gformAddSettingsDelayed']);
 		add_filter('gform_is_delayed_pre_process_feed', [$this, 'gformIsDelayed'], 10, 4);
 		add_filter('gform_disable_post_creation', [$this, 'gformDelayPost'], 10, 3);
 
@@ -466,30 +467,15 @@ class AddOn extends \GFPaymentAddOn {
 					],
 
 					[
-						'name'			=> 'delayPost',
-						'label'			=> esc_html_x('Create Post', 'feed field name', 'gf-heidelpay'),
+						'name'			=> 'post_payment_actions',
+						'label'			=> esc_html_x('Post Payment Actions', 'feed field name', 'gf-heidelpay'),
 						'type'			=> 'checkbox',
 						'choices'		=> [
 							['name' => 'delayPost', 'label' => esc_html__('Create post only when transaction completes', 'gf-heidelpay')],
 						],
-					],
-
-					[
-						'name'			=> 'delayMailchimp',
-						'label'			=> esc_html_x('MailChimp Subscription', 'feed field name', 'gf-heidelpay'),
-						'type'			=> 'checkbox',
-						'choices'		=> [
-							['name' => 'delayMailchimp', 'label' => esc_html__('Subscribe user to MailChimp only when transaction completes', 'gf-heidelpay')],
-						],
-					],
-
-					[
-						'name'			=> 'delayUserrego',
-						'label'			=> esc_html_x('User Registration', 'feed field name', 'gf-heidelpay'),
-						'type'			=> 'checkbox',
-						'choices'		=> [
-							['name' => 'delayUserrego', 'label' => esc_html__('Register user only when transaction completes', 'gf-heidelpay')],
-						],
+						'tooltip'		=> esc_html__('Select which actions should only occur after transaction has been completed.', 'gf-heidelpay')
+										.  '<br/><br/>'
+										.  esc_html__('By default, the transaction must be successful to trigger these actions, or there must be no transaction. You can change that with the Delayed Execute setting.', 'gf-heidelpay'),
 					],
 
 					[
@@ -770,6 +756,47 @@ class AddOn extends \GFPaymentAddOn {
 		}
 
 		return $html;
+	}
+
+	/**
+	* specify where the "Post Payment Action" setting should appear on the payment add-on feed
+	* @param string $feed_slug
+	* @return array
+	*/
+	public function get_post_payment_actions_config( $feed_slug ) {
+		return [
+			'position' => 'after',
+			'setting'  => 'options',
+		];
+	}
+
+	/**
+	* add fields for delayed actions
+	* @param array $fields
+	* @return array
+	*/
+	public function gformAddSettingsDelayed($fields) {
+		// detect Gravity Forms < 2.4.14 (which added automatic support for post payment actions to non-PayPal payment add-ons)
+		if (!method_exists($this, 'add_post_payment_actions')) {
+			// handle add-ons that support delayed payment conventions
+			$addons = self::get_registered_addons();
+			foreach ($addons as $class_name) {
+				if (method_exists($class_name, 'get_instance')) {
+					$addon = call_user_func([$class_name, 'get_instance']);
+					if (!empty($addon->delayed_payment_integration)) {
+						$fields = $addon->add_paypal_post_payment_actions($fields);
+					}
+				}
+			}
+		}
+
+		// manually add some supported add-ons that don't comply with delayed payment conventions
+		if (method_exists('GFZapier', 'add_paypal_post_payment_actions')) {
+			// Zapier add-on versions 1.6 - 3.1
+			$fields = \GFZapier::add_paypal_post_payment_actions($fields, $this);
+		}
+
+		return $fields;
 	}
 
 	/**
@@ -1296,7 +1323,7 @@ class AddOn extends \GFPaymentAddOn {
 	* @return bool
 	*/
 	public function gformDelayPost($is_delayed, $form, $entry) {
-		$feed = $this->getFeed($entry['id']);
+		$feed = $this->get_single_submission_feed($entry);
 
 		if ($entry['payment_status'] === 'Processing' && !empty($feed['meta']['delayPost'])) {
 			$is_delayed = true;
@@ -1316,26 +1343,13 @@ class AddOn extends \GFPaymentAddOn {
 	*/
 	public function gformIsDelayed($is_delayed, $form, $entry, $addon_slug) {
 		if ($entry['payment_status'] === 'Processing') {
-			$feed = $this->getFeed($entry['id']);
+			$feed = $this->get_single_submission_feed($entry);
 
 			if ($feed) {
 
-				switch ($addon_slug) {
-
-					case 'gravityformsmailchimp':
-						if (!empty($feed['meta']['delayMailchimp'])) {
-							$is_delayed = true;
-							$this->log_debug(sprintf('delay MailChimp registration: form id %s, lead id %s', $form['id'], $entry['id']));
-						}
-						break;
-
-					case 'gravityformsuserregistration':
-						if (!empty($feed['meta']['delayUserrego'])) {
-							$is_delayed = true;
-							$this->log_debug(sprintf('delay user registration: form id %s, lead id %s', $form['id'], $entry['id']));
-						}
-						break;
-
+				$is_delayed = $entry['payment_status'] === 'Processing' && !empty($feed['meta']['delay_' . $addon_slug]);
+				if ($is_delayed) {
+					$this->log_debug(sprintf('delay %s: form id %s, entry id %s', $addon_slug, $form['id'], $entry['id']));
 				}
 
 			}
