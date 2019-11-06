@@ -7,8 +7,8 @@ Author URI: https://shop.webaware.com.au/
 Donate link: https://shop.webaware.com.au/donations/?donation_for=Gravity+Forms+heidelpay
 Tags: gravity forms, heidelpay, credit cards, donations, payment
 Requires at least: 4.2
-Tested up to: 5.0
-Stable tag: 1.2.0
+Tested up to: 5.3
+Stable tag: 1.3.0
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -116,17 +116,18 @@ This is a common problem in local testing environments. Read how to [fix your we
 
 ## Upgrade Notice
 
-### 1.2.0
+### 1.3.0
 
-minimum required PHP version is now 5.6; added: custom merge tag for the entry date instead of the current date
+support all Gravity Forms add-ons that register delayed action support through the Add-on framework; fix translation loading; fix incorrect exception class name
 
 ## Changelog
 
 The full changelog can be found [on GitHub](https://github.com/webaware/gravityforms-heidelpay/blob/master/changelog.md). Recent entries:
 
-### 1.2.0
+### 1.3.0
 
-Released 2018-12-01
+Released 2019-11-06
 
-* added: custom merge tag `{date_created}` so that notification resends can show the entry date instead of the current date
-* changed: minimum required PHP version is now 5.6; recommended version is PHP 7.2 or higher
+* fixed: load correct translation domain so that text can be translated
+* fixed: was calling the wrong exception class when there was an error
+* changed: support all Gravity Forms add-ons that register delayed action support through the Add-on framework
