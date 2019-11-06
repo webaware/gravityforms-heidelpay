@@ -1443,12 +1443,6 @@ class AddOn extends \GFPaymentAddOn {
 			// make sure we have a match
 			if ($query && wp_hash(wp_json_encode($check)) === rgar($query, 'hash')) {
 
-				// stop WordPress SEO from stripping off our query parameters and redirecting the page
-				global $wpseo_front;
-				if (isset($wpseo_front)) {
-					remove_action('template_redirect', [$wpseo_front, 'clean_permalink'], 1);
-				}
-
 				// load form and lead data
 				$form = \GFFormsModel::get_form_meta($query['form_id']);
 				$lead = \GFFormsModel::get_lead($query['lead_id']);
