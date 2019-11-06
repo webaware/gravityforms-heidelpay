@@ -5,6 +5,25 @@ if (!defined('ABSPATH')) {
 	exit;
 }
 
+// minimum versions required
+const MIN_VERSION_GF		= '2.0';
+
+// entry meta keys
+const META_TRANSACTION_ID				= 'heidelpay_txn_id';
+const META_SHORT_ID						= 'heidelpay_short_id';
+const META_RETURN_CODE					= 'heidelpay_return_code';
+const META_FEED_ID						= 'heidelpay_feed_id';
+const META_UNIQUE_ID					= 'heidelpay_unique_id';
+
+// end points for return to website
+const ENDPOINT_CONFIRMATION				= '__gfheidelpay';
+
+/**
+* custom exception types
+*/
+class GFHeidelpayException extends \Exception {}
+class GFHeidelpayCurlException extends \Exception {}
+
 /**
 * kick start the plugin
 */
