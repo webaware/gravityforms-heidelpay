@@ -20,3 +20,9 @@ select[name="_gaddon_setting_currency"] {
 .column-feedItem_useTest {
 	width: 6em;
 }
+
+/* for GF < 2.5 */
+.gform_tab_content h3 .gf-heidelpay-svg {
+	fill: #0074a2;
+	height: 1em;
+}

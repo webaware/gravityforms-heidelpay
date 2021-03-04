@@ -2,6 +2,10 @@
 
 ## Changelog
 
+### 1.3.1, 2021-03-04
+
+* fixed: Gravity Forms 2.5 compatibility
+
 ### 1.3.0, 2019-11-06
 
 * fixed: load correct translation domain so that text can be translated

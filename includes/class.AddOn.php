@@ -169,11 +169,27 @@ class AddOn extends \GFPaymentAddOn {
 	}
 
 	/**
-	* set icon for settings page
+	* set icon for settings page in GF < 2.5
 	* @return string
 	*/
 	public function plugin_settings_icon() {
-		return '<i class="fa fa-credit-card" aria-hidden="true"></i>';
+		return $this->get_svg_icon();
+	}
+
+	/**
+	* set the icon for the settings page menu in GF >= 2.5
+	* @return string
+	*/
+	public function get_menu_icon() {
+		return $this->get_svg_icon();
+	}
+
+	/**
+	* get SVG icon used for plugin
+	* @return string
+	*/
+	protected function get_svg_icon() {
+		return file_get_contents(GFHEIDELPAY_PLUGIN_ROOT . '/images/menu-icon.svg');
 	}
 
 	/**
