@@ -7,8 +7,8 @@ Author URI: https://shop.webaware.com.au/
 Donate link: https://shop.webaware.com.au/donations/?donation_for=Gravity+Forms+heidelpay
 Tags: gravity forms, heidelpay, credit cards, donations, payment
 Requires at least: 4.2
-Tested up to: 5.5
-Stable tag: 1.3.0
+Tested up to: 5.7
+Stable tag: 1.3.1
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -116,18 +116,16 @@ This is a common problem in local testing environments. Read how to [fix your we
 
 ## Upgrade Notice
 
-### 1.3.0
+### 1.3.1
 
-support all Gravity Forms add-ons that register delayed action support through the Add-on framework; fix translation loading; fix incorrect exception class name
+Gravity Forms 2.5 compatibility
 
 ## Changelog
 
 The full changelog can be found [on GitHub](https://github.com/webaware/gravityforms-heidelpay/blob/master/changelog.md). Recent entries:
 
-### 1.3.0
+### 1.3.1
 
-Released 2019-11-06
+Released 2021-03-04
 
-* fixed: load correct translation domain so that text can be translated
-* fixed: was calling the wrong exception class when there was an error
-* changed: support all Gravity Forms add-ons that register delayed action support through the Add-on framework
+* fixed: Gravity Forms 2.5 compatibility
